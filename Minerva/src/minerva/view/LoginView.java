@@ -5,12 +5,12 @@ import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import minerva.controller.LoginController;
 
-public class LoginSystem extends javax.swing.JFrame {
+public class LoginView extends javax.swing.JFrame {
 
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
         
-    public LoginSystem() {
+    public LoginView() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
@@ -22,14 +22,15 @@ public class LoginSystem extends javax.swing.JFrame {
         String contrasena = String.valueOf(passwordTxT.getPassword());
         
         if ("".equals(usuario) || "".equals(contrasena)){
-            JOptionPane.showMessageDialog(null, "El correo o contraseña invalidos");
             return;                
         }
         
         if (LoginController.validarCredenciales(usuario, contrasena)) {
-            CajaSystem sistema = new CajaSystem();
-            sistema.setVisible(true);
-            dispose();
+            PuntoVentaView puntoVentaView = new PuntoVentaView();
+            puntoVentaView.setVisible(true);
+            dispose();           
+        } else {
+            JOptionPane.showMessageDialog(null, "El correo o contraseña invalidos");
         }
     }
 
@@ -301,7 +302,7 @@ public class LoginSystem extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LoginSystem().setVisible(true);
+                new LoginView().setVisible(true);
             }
         });
     }

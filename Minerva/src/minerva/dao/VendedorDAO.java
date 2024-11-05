@@ -26,7 +26,6 @@ public class VendedorDAO {
             while (resultSet.next()) {        
                 String usuarioDB = resultSet.getString("Usuario");
                 if (usuarioDB.equals(usuario)) {
-                    System.out.println("usuario validas");
                     return true; // RETORNA TRUE SI EL USUARIO EXISTE
                 }
             } 
@@ -53,7 +52,6 @@ public class VendedorDAO {
                 String contrasenaDB = resultSet.getString("Contrasena");
 
                 if (contrasenaDB.equals(contrasena)) {
-                    System.out.println("Credenciales validas");
                     return true; // RETORNA TRUE SI LAS CREDENCIALES SON VALIDAS
                 }
             }

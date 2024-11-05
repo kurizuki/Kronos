@@ -32,6 +32,7 @@ public class Vendedor implements Auntenticable{
     @Override
     public boolean validarCredenciales(String usuario, String contrasena) {
         if (!validarUsuario(usuario)) {
+            System.out.println("USUARIO NO EXISTE");
             return false;
         }
         

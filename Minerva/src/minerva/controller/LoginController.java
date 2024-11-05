@@ -1,16 +1,16 @@
 package minerva.controller;
 
 import minerva.model.Vendedor;
-import minerva.model.Autenticacion;
+import minerva.model.Auntenticable;
 
 /**
  *
  * @author L
  */
-public class ControladorLogin {
-    private static Autenticacion vendedor = new Vendedor();
-
-    public ControladorLogin() {
+public class LoginController {
+    private static Auntenticable vendedor = new Vendedor();
+    
+    public LoginController() {
         
     }
     

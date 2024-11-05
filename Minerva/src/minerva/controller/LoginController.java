@@ -16,7 +16,7 @@ public class LoginController {
     
     public static boolean validarCredenciales(String usuario, String contrasena) {
         boolean credenciales = vendedor.validarCredenciales(usuario, contrasena);
-        if (credenciales) {
+        if (credenciales) {            
             return true; // SI LA CONTRASEÑA ES VALIDA DEVUELVE TRUE
         }
         return false; // SI LA CONTRASEÑA NO ES VALIDA DEVUELVE FALSE

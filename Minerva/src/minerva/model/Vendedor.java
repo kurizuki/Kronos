@@ -46,4 +46,16 @@ public class Vendedor implements Autenticable{
         
     }
 
+    public String getVendedorID() {
+        return VendedorID;
+    }
+
+    public String getNombres() {
+        return Nombres;
+    }
+
+    public String getUsuario() {
+        return Usuario;
+    }
+ 
 }

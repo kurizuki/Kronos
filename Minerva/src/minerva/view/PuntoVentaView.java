@@ -16,7 +16,7 @@ public class PuntoVentaView extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     // PUNTOVENTA CONTROLLER
-    PuntoVentaController puntoVentaController;
+    PuntoVentaController puntoVentaController = null;
     
     // PANELES
     NuevaVentaPanel nuevaVentaPanel= new NuevaVentaPanel();
@@ -51,7 +51,9 @@ public class PuntoVentaView extends javax.swing.JFrame {
         productosPanel.getController(),
         ventasPanel.getController());
     }
-
+    public void getController() {
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

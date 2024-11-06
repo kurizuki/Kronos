@@ -16,7 +16,15 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
     
     @Override
     public NuevaVentaController getController() {
-        return nuevaVentaController;        
+        actualizarDatos();
+
+        return nuevaVentaController; 
+        
+    }
+    
+    private void actualizarDatos() {
+        System.out.println("ACTULIZAMOS DATOS");
+        vendedorUsuarioLabel.setText(nuevaVentaController.getVendedorUsuario());
     }
 
     /**
@@ -31,7 +39,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
         body = new javax.swing.JTabbedPane();
         panel_1 = new javax.swing.JPanel();
         codigo = new javax.swing.JLabel();
-        codigoTXT = new javax.swing.JTextField();
         descripcion = new javax.swing.JLabel();
         descripcionTXT = new javax.swing.JTextField();
         stock = new javax.swing.JLabel();
@@ -46,6 +53,9 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
         botonRegistrarVenta = new javax.swing.JButton();
         codigo1 = new javax.swing.JLabel();
         javax.swing.JTextField codigoTXT1 = new javax.swing.JTextField();
+        javax.swing.JTextField codigoTXT2 = new javax.swing.JTextField();
+        codigo2 = new javax.swing.JLabel();
+        vendedorUsuarioLabel = new javax.swing.JLabel();
 
         body.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -59,13 +69,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
 
         codigo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         codigo.setText("Vendedor");
-
-        codigoTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        codigoTXT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoTXTActionPerformed(evt);
-            }
-        });
 
         descripcion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         descripcion.setText("Cliente");
@@ -98,7 +101,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, false
+                false, false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -152,6 +155,19 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
             }
         });
 
+        codigoTXT2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigoTXT2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoTXT2ActionPerformed(evt);
+            }
+        });
+
+        codigo2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        codigo2.setText("Cantidad");
+
+        vendedorUsuarioLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        vendedorUsuarioLabel.setText("TE SALTASTE EL LOGIN XD");
+
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
         panel_1Layout.setHorizontalGroup(
@@ -160,12 +176,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
                 .addGap(19, 19, 19)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo)
-                    .addComponent(codigoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(descripcion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(stockTXT))
@@ -178,13 +194,17 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo1)
                     .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(codigo2)
+                    .addComponent(codigoTXT2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(botonRegistrarEImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(botonRegistrarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(total)
                 .addGap(42, 42, 42)
                 .addComponent(total_precio)
@@ -201,10 +221,10 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
                             .addComponent(stock)
                             .addComponent(descripcion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(stockTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codigoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(stockTXT)
+                            .addComponent(descripcionTXT)
+                            .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(eliminar)))
@@ -218,10 +238,15 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
                         .addComponent(total_precio))
                     .addComponent(botonRegistrarVenta)
                     .addComponent(botonImprimir)
-                    .addGroup(panel_1Layout.createSequentialGroup()
-                        .addComponent(codigo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panel_1Layout.createSequentialGroup()
+                            .addComponent(codigo2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(codigoTXT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panel_1Layout.createSequentialGroup()
+                            .addComponent(codigo1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -273,9 +298,9 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarActionPerformed
 
-    private void codigoTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTXTActionPerformed
+    private void codigoTXT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTXT2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_codigoTXTActionPerformed
+    }//GEN-LAST:event_codigoTXT2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -285,7 +310,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
     private javax.swing.JButton botonRegistrarVenta;
     private javax.swing.JLabel codigo;
     private javax.swing.JLabel codigo1;
-    private javax.swing.JTextField codigoTXT;
+    private javax.swing.JLabel codigo2;
     private javax.swing.JLabel descripcion;
     private javax.swing.JTextField descripcionTXT;
     private javax.swing.JButton eliminar;
@@ -296,5 +321,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<N
     private javax.swing.JScrollPane tabla_nuevaVenta;
     private javax.swing.JLabel total;
     private javax.swing.JLabel total_precio;
+    private javax.swing.JLabel vendedorUsuarioLabel;
     // End of variables declaration//GEN-END:variables
 }

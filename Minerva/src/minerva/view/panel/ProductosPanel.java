@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package minerva.view.panel;
+
+import minerva.controller.ProductosController;
 
 /**
  *
  * @author L
  */
-public class ProductosPanel extends javax.swing.JPanel {
+public class ProductosPanel extends javax.swing.JPanel implements Controlable<ProductosController> {
 
-    /**
-     * Creates new form Productos
-     */
+    // CONTROLLER
+    ProductosController productosController= new ProductosController();
+    
     public ProductosPanel() {
         initComponents();
+    }
+    
+    @Override
+    public ProductosController getController() {
+        return this.productosController;        
     }
 
     /**

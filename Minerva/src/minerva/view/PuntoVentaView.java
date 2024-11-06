@@ -7,6 +7,7 @@ import minerva.view.panel.NuevaVentaPanel;
 import minerva.view.panel.ProductosPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import minerva.controller.PuntoVentaController;
 
 
 public class PuntoVentaView extends javax.swing.JFrame {
@@ -14,16 +15,21 @@ public class PuntoVentaView extends javax.swing.JFrame {
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
     
+    // PUNTOVENTA CONTROLLER
+    PuntoVentaController puntoVentaController;
+    
     // PANELES
     NuevaVentaPanel nuevaVentaPanel= new NuevaVentaPanel();
     ClientesPanel   clientesPanel  = new ClientesPanel();
     ProveedorPanel  proveedorPanel = new ProveedorPanel();
     ProductosPanel  productosPanel = new ProductosPanel();
     VentasPanel     ventasPanel    = new VentasPanel();
-            
 
-    
     public PuntoVentaView() {
+        
+    }
+
+    public PuntoVentaView(String usuario) {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
@@ -35,16 +41,15 @@ public class PuntoVentaView extends javax.swing.JFrame {
         content.add(nuevaVentaPanel, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
-    }
-
-    public void ListarCliente() {
-        //INSERTA LOS DATOS INGRESADOS EN EL FORMULARIO A LA TABLA CLIENTE
-       
-    }
-
-    public void LimpiarTabla() {
-        //METODO PARA LIMPIAR LA TABLA AL SELECCIONAR EL BOTON DE CLIENTE
-      
+        
+        // ASIGNAMOS LOS DATOS DEL VENDEDOR Y SUS RESPECTIVOS CONTROLADORES PARA QUE INTERACTUAN DESDE
+        // EL CONTROLADOR MADRE QUE ES PUNTODEVENTACONTROLLER
+        puntoVentaController = new PuntoVentaController(usuario, 
+        nuevaVentaPanel.getController(),
+        clientesPanel.getController(),
+        proveedorPanel.getController(),
+        productosPanel.getController(),
+        ventasPanel.getController());
     }
 
     @SuppressWarnings("unchecked")
@@ -313,11 +318,6 @@ public class PuntoVentaView extends javax.swing.JFrame {
         content.add(clientesPanel, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
-        //METODOS
-        LimpiarTabla();
-        ListarCliente();
-        //SELECCIONA LA TABLA 2 AL PRESIONAR EL BOTON CLIENTES
-
     }//GEN-LAST:event_botonClientesActionPerformed
 
     private void botonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentaActionPerformed
@@ -327,7 +327,7 @@ public class PuntoVentaView extends javax.swing.JFrame {
         content.removeAll();
         content.add(nuevaVentaPanel, BorderLayout.CENTER);
         content.revalidate();
-        content.repaint();
+        content.repaint();    
     }//GEN-LAST:event_botonNuevaVentaActionPerformed
 
     private void botonProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProveedorActionPerformed
@@ -363,10 +363,6 @@ public class PuntoVentaView extends javax.swing.JFrame {
     private void botonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfigActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonConfigActionPerformed
-
-    private void LimpiarCliente() {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonClientes;

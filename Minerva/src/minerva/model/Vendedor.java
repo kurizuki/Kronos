@@ -6,8 +6,8 @@ import minerva.dao.VendedorDAO;
  *
  * @author A
  */
-public class Vendedor implements Auntenticable{
-    private int VendedorID;
+public class Vendedor implements Autenticable{
+    private String VendedorID;
     private String Nombres;
     private String Usuario;
     private VendedorDAO vendedorDAO = new VendedorDAO();
@@ -15,16 +15,10 @@ public class Vendedor implements Auntenticable{
     public Vendedor() {
     }
 
-    public Vendedor(int VendedorID, String Nombres, String Usuario) {
-        this.VendedorID = VendedorID;
-        this.Nombres = Nombres;
-        this.Usuario = Usuario;
-    }
-
     // VALIDA SI EL USUARIO EXISTE EN LA BASE DE DATOS
     @Override
     public boolean validarUsuario(String usuario) {
-        boolean usaurioExiste = vendedorDAO.consultarUsuario(usuario);
+        boolean usaurioExiste = vendedorDAO.consultarExistenciaUsuario(usuario);
         return usaurioExiste;
     }
     
@@ -32,12 +26,24 @@ public class Vendedor implements Auntenticable{
     @Override
     public boolean validarCredenciales(String usuario, String contrasena) {
         if (!validarUsuario(usuario)) {
-            System.out.println("USUARIO NO EXISTE");
             return false;
         }
         
-        boolean credenciales = vendedorDAO.consultarCredenciales(usuario, contrasena);        
-        return credenciales;
+        String contrasenaDB = vendedorDAO.consultarContrasena(usuario, contrasena);
+        if (contrasenaDB.equals(contrasena)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public void asignarDatosVendedor(String usuario) {
+        String[] datosUsuario = new String[3];
+        datosUsuario = vendedorDAO.consultarDatos(usuario);
+        
+        this.VendedorID = datosUsuario[0];
+        this.Nombres = datosUsuario[1];
+        this.Usuario = datosUsuario[2];
+        
     }
 
 }

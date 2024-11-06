@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package minerva.view.panel;
+
+import minerva.controller.ProveedorController;
 
 /**
  *
  * @author L
  */
-public class ProveedorPanel extends javax.swing.JPanel {
+public class ProveedorPanel extends javax.swing.JPanel implements Controlable<ProveedorController> {
 
-    /**
-     * Creates new form Proveedor
-     */
+    // CONTROLLER
+    ProveedorController proveedorController= new ProveedorController();
+    
     public ProveedorPanel() {
         initComponents();
+    }
+    
+    @Override
+    public ProveedorController getController() {
+        return this.proveedorController;        
     }
 
     /**

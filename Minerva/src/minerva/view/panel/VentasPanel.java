@@ -1,20 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package minerva.view.panel;
+
+import minerva.controller.VentasController;
 
 /**
  *
  * @author L
  */
-public class VentasPanel extends javax.swing.JPanel {
+public class VentasPanel extends javax.swing.JPanel implements Controlable<VentasController>{
 
-    /**
-     * Creates new form Ventas
-     */
+    // CONTROLLER
+    VentasController ventasController= new VentasController();
+    
     public VentasPanel() {
         initComponents();
+    }
+    
+    @Override
+    public VentasController getController() {
+        return this.ventasController;        
     }
 
     /**

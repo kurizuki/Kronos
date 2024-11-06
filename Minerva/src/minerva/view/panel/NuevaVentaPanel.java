@@ -1,16 +1,22 @@
 package minerva.view.panel;
 
+import minerva.controller.NuevaVentaController;
+
 /**
  *
  * @author L
  */
-public class NuevaVentaPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form NuevaVenta
-     */
+public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<NuevaVentaController> {
+    // CONTROLLER
+    NuevaVentaController nuevaVentaController= new NuevaVentaController();
+    
     public NuevaVentaPanel() {
         initComponents();
+    }
+    
+    @Override
+    public NuevaVentaController getController() {
+        return nuevaVentaController;        
     }
 
     /**
@@ -219,7 +225,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        body.addTab("tab1", panel_1);
+        body.addTab("NuevaVenta", panel_1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

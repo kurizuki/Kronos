@@ -25,9 +25,10 @@ public class LoginView extends javax.swing.JFrame {
             return;                
         }
         
+        // USAMOS EL LOGINCONTROLER
         if (LoginController.validarCredenciales(usuario, contrasena)) {
-            PuntoVentaView puntoVentaView = new PuntoVentaView();
-            puntoVentaView.setVisible(true);
+            PuntoVentaView puntoVentaView = new PuntoVentaView(usuario);
+            puntoVentaView.setVisible(true);            
             dispose();           
         } else {
             JOptionPane.showMessageDialog(null, "El correo o contraseña invalidos");

@@ -7,7 +7,8 @@ package minerva.controller;
 public class ClientesController {
     SystemController systemController = null;
 
-    public ClientesController() {
+    public ClientesController(SystemController systemController) {
+        this.systemController = systemController;
     }
     
     

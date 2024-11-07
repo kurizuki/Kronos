@@ -8,22 +8,31 @@ public class NuevaVentaController {
     private SystemController systemController = null;
     
     private String vendedorUsuario = "Te saltaste el Login XD";
-    private String cliente         = "Anonimo";
+    private String nombreCliente   = "Anonimo";
 
     public NuevaVentaController() {
     }
 
     public NuevaVentaController(SystemController systemController) {
         this.systemController = systemController;
-        asignarDatosPanel();
+        asignarDatosVendedor();
+        asignarDatosCliente();
     }
 
     public String getVendedorUsuario() {
-        return vendedorUsuario;
+        return this.vendedorUsuario;
+    }
+    
+    public String getNombreCliente() {
+        return this.nombreCliente;
     }
 
-    private void asignarDatosPanel() {
-        vendedorUsuario = systemController.getVendedorUsuario();
+    private void asignarDatosVendedor() {
+        this.vendedorUsuario = systemController.getVendedorUsuario();
+    }
+    
+    private void asignarDatosCliente() {
+        
     }
 
 }

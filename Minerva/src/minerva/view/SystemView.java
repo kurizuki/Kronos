@@ -40,7 +40,7 @@ public class SystemView extends javax.swing.JFrame {
         
         // PANEL INICIALIZAR
         nuevaVentaPanel= new NuevaVentaPanel(systemController);
-//        clientesPanel  = new ClientesPanel(systemController);
+        clientesPanel  = new ClientesPanel(systemController);
 //        proveedorPanel = new ProveedorPanel(systemController);
 //        productosPanel = new ProductosPanel(systemController);
 //        ventasPanel    = new VentasPanel(systemController);

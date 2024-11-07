@@ -14,7 +14,11 @@ public class Vendedor implements Autenticable{
 
     public Vendedor() {
     }
-
+    
+    public String getUsuario() {
+        return usuario;
+    }
+    
     // VALIDA SI EL VENDEDOR EXISTE EN LA BASE DE DATOS
     @Override
     public boolean validarUsuario(String usuario) {
@@ -46,8 +50,4 @@ public class Vendedor implements Autenticable{
         this.nombres = vendedorDAO.consultarNombres(usuario);
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
- 
 }

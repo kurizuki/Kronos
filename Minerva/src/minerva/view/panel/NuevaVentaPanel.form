@@ -68,7 +68,7 @@
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="descripcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="descripcionTXT" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Component id="nombreCliente" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -124,7 +124,7 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="descripcionTXT" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nombreCliente" alignment="0" max="32767" attributes="0"/>
                                           <Component id="vendedorUsuarioLabel" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -186,7 +186,7 @@
                 <Property name="text" type="java.lang.String" value="Cliente"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="descripcionTXT">
+            <Component class="javax.swing.JTextField" name="nombreCliente">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>

@@ -14,11 +14,16 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     public NuevaVentaPanel(SystemController systemController) {
         initComponents();
         nuevaVentaController= new NuevaVentaController(systemController);
-        actualizarDatos();
+        asignarDatosVendedorPanel();
+        asignarDatosClientePanel();
     }
       
-    private void actualizarDatos() {
+    private void asignarDatosVendedorPanel() {
         vendedorUsuarioLabel.setText(nuevaVentaController.getVendedorUsuario());
+    }
+    
+    private void asignarDatosClientePanel() {
+        nombreCliente.setText(nuevaVentaController.getNombreCliente());
     }
 
     /**
@@ -34,7 +39,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         panel_1 = new javax.swing.JPanel();
         codigo = new javax.swing.JLabel();
         descripcion = new javax.swing.JLabel();
-        descripcionTXT = new javax.swing.JTextField();
+        nombreCliente = new javax.swing.JTextField();
         stock = new javax.swing.JLabel();
         eliminar = new javax.swing.JButton();
         tabla_nuevaVenta = new javax.swing.JScrollPane();
@@ -67,7 +72,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         descripcion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         descripcion.setText("Cliente");
 
-        descripcionTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         stock.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         stock.setText("Stock ");
@@ -179,7 +184,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descripcion)
-                    .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +231,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                             .addGroup(panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(descripcionTXT)
+                                    .addComponent(nombreCliente)
                                     .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -319,8 +324,8 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel codigo1;
     private javax.swing.JLabel codigo2;
     private javax.swing.JLabel descripcion;
-    private javax.swing.JTextField descripcionTXT;
     private javax.swing.JButton eliminar;
+    private javax.swing.JTextField nombreCliente;
     private javax.swing.JPanel panel_1;
     private javax.swing.JLabel stock;
     private javax.swing.JLabel stockLabel;

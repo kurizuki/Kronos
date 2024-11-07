@@ -1,6 +1,7 @@
 package minerva.view.panel;
 
 import minerva.controller.ClientesController;
+import minerva.controller.SystemController;
 
 /**
  *
@@ -8,10 +9,11 @@ import minerva.controller.ClientesController;
  */
 public class ClientesPanel extends javax.swing.JPanel {
     // CONTROLLER
-    ClientesController clientesController= new ClientesController();
+    ClientesController clientesController;
 
-    public ClientesPanel() {
+    public ClientesPanel(SystemController systemController) {
         initComponents();
+        clientesController = new ClientesController(systemController);
     }
     
 

@@ -1,6 +1,8 @@
 package minerva.view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import minerva.controller.LoginController;
@@ -13,10 +15,11 @@ public class LoginView extends javax.swing.JFrame {
     public LoginView() {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);   
+        asignarListener();
     }
     
-    public void validar(){
+    private void validar(){
         //VALIDA QUE LOS DATOS INGRESADOS EN EL LOGIN SEAN IGUALES A LOS USUARIOS DE LA BASE DE DATOS
         String usuario = userTxT.getText();
         String contrasena = String.valueOf(passwordTxT.getPassword());
@@ -33,6 +36,15 @@ public class LoginView extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "El correo o contraseña invalidos");
         }
+    }
+    
+    private void asignarListener() {
+        passwordTxT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                botonIniciarSesionActionPerformed(evt);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -201,7 +213,7 @@ public class LoginView extends javax.swing.JFrame {
                 botonIniciarSesionActionPerformed(evt);
             }
         });
-        background.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 420, 40));
+        background.add(botonIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 370, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,28 +261,12 @@ public class LoginView extends javax.swing.JFrame {
 
     private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
         //PLACEHOLDER DEL USUARIO
-        if(userTxT.getText().equals("Ingrese su nombre de usuario")){
-           userTxT.setText("");
-           userTxT.setForeground(Color.black);
-        }
         
-        if (String.valueOf(passwordTxT.getPassword()).isEmpty()){
-            passwordTxT.setText("***************");
-            passwordTxT.setForeground(Color.gray);
-        }
     }//GEN-LAST:event_userTxTMousePressed
 
     private void passwordTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTxTMousePressed
         //PLACEHOLDER DE LA CONTRASEÑA
-        if(String.valueOf(passwordTxT.getPassword()).equals("***************")){
-            passwordTxT.setText("");
-            passwordTxT.setForeground(Color.black);
-        }
-  
-        if (userTxT.getText().isEmpty()){
-            userTxT.setText("Ingrese su nombre de usuario");
-            userTxT.setForeground(Color.gray);
-        }
+        
     }//GEN-LAST:event_passwordTxTMousePressed
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed

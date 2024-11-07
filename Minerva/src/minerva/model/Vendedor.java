@@ -15,7 +15,7 @@ public class Vendedor implements Autenticable{
     public Vendedor() {
     }
 
-    // VALIDA SI EL USUARIO EXISTE EN LA BASE DE DATOS
+    // VALIDA SI EL VENDEDOR EXISTE EN LA BASE DE DATOS
     @Override
     public boolean validarUsuario(String usuario) {
         boolean usaurioExiste = vendedorDAO.consultarExistenciaUsuario(usuario);
@@ -44,14 +44,6 @@ public class Vendedor implements Autenticable{
         this.Nombres = datosUsuario[1];
         this.Usuario = datosUsuario[2];
         
-    }
-
-    public String getVendedorID() {
-        return VendedorID;
-    }
-
-    public String getNombres() {
-        return Nombres;
     }
 
     public String getUsuario() {

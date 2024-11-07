@@ -16,8 +16,8 @@ public class SystemController {
         vendedor.asignarDatosVendedor(usuario);
     }
 
-    public Vendedor getVendedor() {
-        return vendedor;
-    } 
-  
+    public String getVendedorUsuario() {
+        return vendedor.getUsuario();
+    }
+    
 }

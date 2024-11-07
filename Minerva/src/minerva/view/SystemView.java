@@ -7,6 +7,7 @@ import minerva.view.panel.NuevaVentaPanel;
 import minerva.view.panel.ProductosPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.JPanel;
 import minerva.controller.SystemController;
 
 
@@ -15,55 +16,57 @@ public class SystemView extends javax.swing.JFrame {
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
     
-    // PUNTOVENTA CONTROLLER
+    // CONTROLLER
     SystemController systemController = null;
     
     // PANELES
     NuevaVentaPanel nuevaVentaPanel = null;
-    ClientesPanel   clientesPanel  = new ClientesPanel();
-    ProveedorPanel  proveedorPanel = new ProveedorPanel();
-    ProductosPanel  productosPanel = new ProductosPanel();
-    VentasPanel     ventasPanel    = new VentasPanel();
+    ClientesPanel   clientesPanel  = null;
+    ProveedorPanel  proveedorPanel = null;
+    ProductosPanel  productosPanel = null;
+    VentasPanel     ventasPanel    = null;
 
     public SystemView() {
         
     }
 
     public SystemView(String usuario) {
-        System.out.println("INICIANDP IIT");
         initComponents();
-        System.out.println("INIT FINALIZADO");
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
-        
-        
-        
-        // ASIGNAMOS LOS DATOS DEL VENDEDOR Y SUS RESPECTIVOS CONTROLADORES PARA QUE INTERACTUAN DESDE
-        // EL CONTROLADOR MADRE QUE ES PUNTODEVENTACONTROLLER
+       
+        // CONTROLLER INICIALIZAR
         systemController = new SystemController(usuario);
         
-        nuevaVentaPanel= new NuevaVentaPanel(this.systemController);
-        // ESTA ES EL PANEL INICIAL QUE SE MOSTRARÁ CUANDO INICIE EL PROGRAMA
-        nuevaVentaPanel.setSize(900, 570);
-        nuevaVentaPanel.setLocation(0, 0);
+        // PANEL INICIALIZAR
+        nuevaVentaPanel= new NuevaVentaPanel(systemController);
+//        clientesPanel  = new ClientesPanel(systemController);
+//        proveedorPanel = new ProveedorPanel(systemController);
+//        productosPanel = new ProductosPanel(systemController);
+//        ventasPanel    = new VentasPanel(systemController);
         
-        content.removeAll();
-        content.add(nuevaVentaPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        // ESTE ES EL PANEL INICIAL QUE SE MOSTRARÁ
+        dibujarPanel(nuevaVentaPanel);
     }
   
     public SystemController getController() {
         return systemController;
     }
     
+    private void dibujarPanel(JPanel jPanel) {
+        jPanel.setSize(1080, 610);
+        jPanel.setLocation(0, 0);
+        
+        content.removeAll();
+        content.add(jPanel, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel = new javax.swing.JPanel();
-        botonExit = new javax.swing.JPanel();
-        botonExitLabel = new javax.swing.JLabel();
         navBar = new javax.swing.JPanel();
         logoEmpresa = new javax.swing.JLabel();
         botonNuevaVenta = new javax.swing.JButton();
@@ -73,8 +76,10 @@ public class SystemView extends javax.swing.JFrame {
         botonVentas = new javax.swing.JButton();
         botonConfig = new javax.swing.JButton();
         header = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
+        botonExit = new javax.swing.JPanel();
+        botonExitLabel = new javax.swing.JLabel();
+        panel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -82,65 +87,8 @@ public class SystemView extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panel.setBackground(new java.awt.Color(255, 102, 0));
-        panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                panelMouseDragged(evt);
-            }
-        });
-        panel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                panelMousePressed(evt);
-            }
-        });
-
-        botonExit.setBackground(new java.awt.Color(255, 102, 0));
-        botonExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                botonExitMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                botonExitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                botonExitMouseExited(evt);
-            }
-        });
-
-        botonExitLabel.setFont(new java.awt.Font("Roboto Light", 1, 24)); // NOI18N
-        botonExitLabel.setForeground(new java.awt.Color(0, 0, 0));
-        botonExitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        botonExitLabel.setText("X");
-
-        javax.swing.GroupLayout botonExitLayout = new javax.swing.GroupLayout(botonExit);
-        botonExit.setLayout(botonExitLayout);
-        botonExitLayout.setHorizontalGroup(
-            botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonExitLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botonExitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        botonExitLayout.setVerticalGroup(
-            botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(botonExitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap(1045, Short.MAX_VALUE)
-                .addComponent(botonExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(botonExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 50));
-
         navBar.setBackground(new java.awt.Color(255, 102, 0));
+        navBar.setPreferredSize(new java.awt.Dimension(200, 720));
 
         logoEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoFerreteria.png"))); // NOI18N
@@ -243,44 +191,96 @@ public class SystemView extends javax.swing.JFrame {
                 .addGap(35, 35, 35))
         );
 
-        getContentPane().add(navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 700));
+        getContentPane().add(navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
         header.setBackground(new java.awt.Color(255, 102, 0));
-
-        titulo.setFont(new java.awt.Font("Roboto Medium", 1, 48)); // NOI18N
-        titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("PUNTO DE VENTA");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 1020, Short.MAX_VALUE)
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addGap(0, 110, Short.MAX_VALUE)
         );
 
-        getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 900, 110));
+        getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1020, 110));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 1080, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
         );
 
-        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 900, 570));
+        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 1080, 610));
+
+        botonExit.setBackground(new java.awt.Color(255, 102, 0));
+        botonExit.setToolTipText("");
+        botonExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonExitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                botonExitMouseExited(evt);
+            }
+        });
+
+        botonExitLabel.setFont(new java.awt.Font("Roboto Light", 1, 24)); // NOI18N
+        botonExitLabel.setForeground(new java.awt.Color(0, 0, 0));
+        botonExitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        botonExitLabel.setText("X");
+
+        javax.swing.GroupLayout botonExitLayout = new javax.swing.GroupLayout(botonExit);
+        botonExit.setLayout(botonExitLayout);
+        botonExitLayout.setHorizontalGroup(
+            botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonExitLayout.createSequentialGroup()
+                .addComponent(botonExitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+        botonExitLayout.setVerticalGroup(
+            botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonExitLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botonExitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 0, 60, 50));
+
+        panel.setBackground(new java.awt.Color(255, 102, 0));
+        panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                panelMouseDragged(evt);
+            }
+        });
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 50, 60, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -316,53 +316,23 @@ public class SystemView extends javax.swing.JFrame {
     }//GEN-LAST:event_botonExitMouseClicked
 
     private void botonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClientesActionPerformed
-        clientesPanel.setSize(900, 570);
-        clientesPanel.setLocation(0, 0);
-        
-        content.removeAll();
-        content.add(clientesPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        dibujarPanel(clientesPanel);
     }//GEN-LAST:event_botonClientesActionPerformed
 
     private void botonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentaActionPerformed
-        nuevaVentaPanel.setSize(900, 570);
-        nuevaVentaPanel.setLocation(0, 0);
-        
-        content.removeAll();
-        content.add(nuevaVentaPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();    
+        dibujarPanel(nuevaVentaPanel);   
     }//GEN-LAST:event_botonNuevaVentaActionPerformed
 
     private void botonProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProveedorActionPerformed
-        proveedorPanel.setSize(900, 570);
-        proveedorPanel.setLocation(0, 0);
-        
-        content.removeAll();
-        content.add(proveedorPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        dibujarPanel(proveedorPanel);
     }//GEN-LAST:event_botonProveedorActionPerformed
 
     private void botonProductosConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductosConfigActionPerformed
-        productosPanel.setSize(900, 570);
-        productosPanel.setLocation(0, 0);
-        
-        content.removeAll();
-        content.add(productosPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        dibujarPanel(productosPanel);
     }//GEN-LAST:event_botonProductosConfigActionPerformed
 
     private void botonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVentasActionPerformed
-        ventasPanel.setSize(900, 570);
-        ventasPanel.setLocation(0, 0);
-        
-        content.removeAll();
-        content.add(ventasPanel, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+        dibujarPanel(ventasPanel);
     }//GEN-LAST:event_botonVentasActionPerformed
 
     private void botonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfigActionPerformed
@@ -383,7 +353,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel logoEmpresa;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel panel;
-    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 
 }

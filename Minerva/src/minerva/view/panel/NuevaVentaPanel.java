@@ -15,7 +15,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         initComponents();
         nuevaVentaController= new NuevaVentaController(systemController);
         actualizarDatos();
-
     }
       
     private void actualizarDatos() {
@@ -37,7 +36,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         descripcion = new javax.swing.JLabel();
         descripcionTXT = new javax.swing.JTextField();
         stock = new javax.swing.JLabel();
-        stockTXT = new javax.swing.JTextField();
         eliminar = new javax.swing.JButton();
         tabla_nuevaVenta = new javax.swing.JScrollPane();
         tabla_1 = new javax.swing.JTable();
@@ -51,6 +49,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         javax.swing.JTextField codigoTXT2 = new javax.swing.JTextField();
         codigo2 = new javax.swing.JLabel();
         vendedorUsuarioLabel = new javax.swing.JLabel();
+        stockLabel = new javax.swing.JLabel();
 
         body.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -71,9 +70,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         descripcionTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         stock.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        stock.setText("Stock Disponible");
-
-        stockTXT.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        stock.setText("Stock ");
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -86,17 +83,17 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         tabla_1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         tabla_1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NOMBRE", "DESCRIPCION", "CANTIDAD", "PRECIO U.", "MONTO"
+                "COD", "PRODUCTO", "DESCRIPCION", "CANTIDAD", "PRECIO U.", "MONTO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, false
+                false, false, false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -108,6 +105,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             }
         });
         tabla_nuevaVenta.setViewportView(tabla_1);
+        if (tabla_1.getColumnModel().getColumnCount() > 0) {
+            tabla_1.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tabla_1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tabla_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tabla_1.getColumnModel().getColumn(5).setPreferredWidth(15);
+        }
 
         botonRegistrarEImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
         botonRegistrarEImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -161,7 +164,8 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         codigo2.setText("Cantidad");
 
         vendedorUsuarioLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        vendedorUsuarioLabel.setText("TE SALTASTE EL LOGIN XD");
+
+        stockLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
@@ -171,19 +175,18 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo)
-                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(descripcion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(stockTXT))
+                    .addComponent(descripcion)
+                    .addComponent(descripcionTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addComponent(eliminar)
                 .addGap(19, 19, 19))
-            .addComponent(tabla_nuevaVenta)
             .addGroup(panel_1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +196,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo2)
                     .addComponent(codigoTXT2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(botonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonRegistrarEImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,6 +207,10 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addGap(42, 42, 42)
                 .addComponent(total_precio)
                 .addGap(37, 37, 37))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabla_nuevaVenta)
+                .addContainerGap())
         );
         panel_1Layout.setVerticalGroup(
             panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,17 +222,22 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                             .addComponent(codigo)
                             .addComponent(stock)
                             .addComponent(descripcion))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(stockTXT)
-                            .addComponent(descripcionTXT)
-                            .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(panel_1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(descripcionTXT)
+                                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(stockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3))))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(eliminar)))
-                .addGap(18, 18, 18)
-                .addComponent(tabla_nuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(21, 21, 21)
+                .addComponent(tabla_nuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonRegistrarEImprimir)
                     .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -242,7 +254,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                             .addComponent(codigo1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         body.addTab("NuevaVenta", panel_1);
@@ -251,20 +263,20 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 1080, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -311,7 +323,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     private javax.swing.JButton eliminar;
     private javax.swing.JPanel panel_1;
     private javax.swing.JLabel stock;
-    private javax.swing.JTextField stockTXT;
+    private javax.swing.JLabel stockLabel;
     private javax.swing.JTable tabla_1;
     private javax.swing.JScrollPane tabla_nuevaVenta;
     private javax.swing.JLabel total;

@@ -6,18 +6,13 @@ import minerva.controller.ProveedorController;
  *
  * @author L
  */
-public class ProveedorPanel extends javax.swing.JPanel implements Controlable<ProveedorController> {
+public class ProveedorPanel extends javax.swing.JPanel {
 
     // CONTROLLER
     ProveedorController proveedorController= new ProveedorController();
     
     public ProveedorPanel() {
         initComponents();
-    }
-    
-    @Override
-    public ProveedorController getController() {
-        return this.proveedorController;        
     }
 
     /**

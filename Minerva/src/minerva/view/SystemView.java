@@ -7,33 +7,43 @@ import minerva.view.panel.NuevaVentaPanel;
 import minerva.view.panel.ProductosPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import minerva.controller.PuntoVentaController;
+import minerva.controller.SystemController;
 
 
-public class PuntoVentaView extends javax.swing.JFrame {
+public class SystemView extends javax.swing.JFrame {
 
     //VARIABLES DEL MOUSE
     int xMouse, yMouse;
     
     // PUNTOVENTA CONTROLLER
-    PuntoVentaController puntoVentaController = null;
+    SystemController systemController = null;
     
     // PANELES
-    NuevaVentaPanel nuevaVentaPanel= new NuevaVentaPanel();
+    NuevaVentaPanel nuevaVentaPanel = null;
     ClientesPanel   clientesPanel  = new ClientesPanel();
     ProveedorPanel  proveedorPanel = new ProveedorPanel();
     ProductosPanel  productosPanel = new ProductosPanel();
     VentasPanel     ventasPanel    = new VentasPanel();
 
-    public PuntoVentaView() {
+    public SystemView() {
         
     }
 
-    public PuntoVentaView(String usuario) {
+    public SystemView(String usuario) {
+        System.out.println("INICIANDP IIT");
         initComponents();
+        System.out.println("INIT FINALIZADO");
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);
         
+        
+        
+        // ASIGNAMOS LOS DATOS DEL VENDEDOR Y SUS RESPECTIVOS CONTROLADORES PARA QUE INTERACTUAN DESDE
+        // EL CONTROLADOR MADRE QUE ES PUNTODEVENTACONTROLLER
+        systemController = new SystemController(usuario);
+        
+        nuevaVentaPanel= new NuevaVentaPanel(this.systemController);
+        // ESTA ES EL PANEL INICIAL QUE SE MOSTRARÁ CUANDO INICIE EL PROGRAMA
         nuevaVentaPanel.setSize(900, 570);
         nuevaVentaPanel.setLocation(0, 0);
         
@@ -41,19 +51,12 @@ public class PuntoVentaView extends javax.swing.JFrame {
         content.add(nuevaVentaPanel, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
-        
-        // ASIGNAMOS LOS DATOS DEL VENDEDOR Y SUS RESPECTIVOS CONTROLADORES PARA QUE INTERACTUAN DESDE
-        // EL CONTROLADOR MADRE QUE ES PUNTODEVENTACONTROLLER
-        puntoVentaController = new PuntoVentaController(usuario, 
-        nuevaVentaPanel.getController(),
-        clientesPanel.getController(),
-        proveedorPanel.getController(),
-        productosPanel.getController(),
-        ventasPanel.getController());
     }
-    public void getController() {
-        
+  
+    public SystemController getController() {
+        return systemController;
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -6,18 +6,13 @@ import minerva.controller.VentasController;
  *
  * @author L
  */
-public class VentasPanel extends javax.swing.JPanel implements Controlable<VentasController>{
+public class VentasPanel extends javax.swing.JPanel {
 
     // CONTROLLER
     VentasController ventasController= new VentasController();
     
     public VentasPanel() {
         initComponents();
-    }
-    
-    @Override
-    public VentasController getController() {
-        return this.ventasController;        
     }
 
     /**

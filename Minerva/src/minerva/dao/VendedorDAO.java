@@ -66,8 +66,8 @@ public class VendedorDAO {
     public String[] consultarDatos(String usuario) {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-        final String QUERY = "SELECT VendedorID, Nombres, Usuario FROM vendedor WHERE Nombres=?";
-        String[] datosUsuario = new String[3];
+        final String QUERY = "SELECT VendedorID, Nombres, Usuario FROM vendedor WHERE Usuario=?";
+        String[] datosVendedor = new String[3];
         
         try (MySQLConnector mySQLConnector = new MySQLConnector()){
             connection = mySQLConnector.getConnection();
@@ -76,16 +76,15 @@ public class VendedorDAO {
             preparedStatement.setString(1, usuario);
             resultSet = preparedStatement.executeQuery();
             
-            while (resultSet.next()) {     
-                // CONVERTIMOS EL ID EN STRING 
-                datosUsuario[0] = String.valueOf(resultSet.getInt("VendedorID"));
-                datosUsuario[1] = resultSet.getString("Nombres");
-                datosUsuario[2] = resultSet.getString("Usuario");
+            while (resultSet.next()) {   
+                datosVendedor[0] = String.valueOf(resultSet.getInt("VendedorID"));
+                datosVendedor[1] = resultSet.getString("Nombres");
+                datosVendedor[2] = resultSet.getString("Usuario");
             }
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.toString());
         }
 
-        return datosUsuario; // RETORNA FALSE SI LAS CREDENCIALES SON INVALIDAS
+        return datosVendedor; // RETORNA FALSE SI LAS CREDENCIALES SON INVALIDAS
     }
 }

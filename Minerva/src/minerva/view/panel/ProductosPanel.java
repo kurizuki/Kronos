@@ -6,7 +6,7 @@ import minerva.controller.ProductosController;
  *
  * @author L
  */
-public class ProductosPanel extends javax.swing.JPanel implements Controlable<ProductosController> {
+public class ProductosPanel extends javax.swing.JPanel {
 
     // CONTROLLER
     ProductosController productosController= new ProductosController();
@@ -15,11 +15,6 @@ public class ProductosPanel extends javax.swing.JPanel implements Controlable<Pr
         initComponents();
     }
     
-    @Override
-    public ProductosController getController() {
-        return this.productosController;        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

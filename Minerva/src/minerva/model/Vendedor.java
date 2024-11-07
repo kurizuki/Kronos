@@ -4,7 +4,7 @@ import minerva.dao.VendedorDAO;
 
 /**
  *
- * @author A
+ * @author L
  */
 public class Vendedor implements Autenticable{
     private String VendedorID;

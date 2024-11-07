@@ -27,7 +27,7 @@ public class LoginView extends javax.swing.JFrame {
         
         // USAMOS EL LOGINCONTROLER
         if (LoginController.validarCredenciales(usuario, contrasena)) {
-            PuntoVentaView puntoVentaView = new PuntoVentaView(usuario);
+            SystemView puntoVentaView = new SystemView(usuario);
             puntoVentaView.setVisible(true);            
             dispose();           
         } else {

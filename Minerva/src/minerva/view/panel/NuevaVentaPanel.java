@@ -1,29 +1,24 @@
 package minerva.view.panel;
 
 import minerva.controller.NuevaVentaController;
+import minerva.controller.SystemController;
 
 /**
  *
  * @author L
  */
-public class NuevaVentaPanel extends javax.swing.JPanel implements Controlable<NuevaVentaController> {
+public class NuevaVentaPanel extends javax.swing.JPanel {
     // CONTROLLER
-    NuevaVentaController nuevaVentaController= new NuevaVentaController();
+    NuevaVentaController nuevaVentaController = null;
     
-    public NuevaVentaPanel() {
+    public NuevaVentaPanel(SystemController systemController) {
         initComponents();
-    }
-    
-    @Override
-    public NuevaVentaController getController() {
+        nuevaVentaController= new NuevaVentaController(systemController);
         actualizarDatos();
 
-        return nuevaVentaController; 
-        
     }
-    
+      
     private void actualizarDatos() {
-        System.out.println("ACTULIZAMOS DATOS");
         vendedorUsuarioLabel.setText(nuevaVentaController.getVendedorUsuario());
     }
 

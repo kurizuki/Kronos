@@ -7,7 +7,7 @@ import minerva.dao.VendedorDAO;
  * @author L
  */
 public class Vendedor implements Autenticable{
-    private int vendedorID = -1;
+    private int vendedorID;
     private String nombres;
     private String usuario;
     private VendedorDAO vendedorDAO = new VendedorDAO();
@@ -41,19 +41,9 @@ public class Vendedor implements Autenticable{
         if (!vendedorDAO.consultarExisteUsuario(usuario)) {
             return;
         }
-        System.out.println("TAMOS JOYA");
         this.usuario = usuario;
-        System.out.println(this.usuario);
-                System.out.println("TAMOS JOYA");
-
         this.vendedorID = vendedorDAO.consultarID(usuario);
-                                System.out.println(vendedorID);
-
-                System.out.println("TAMOS JOYA");
-
-        this.nombres = vendedorDAO.consultarNombres(usuario); 
-        System.out.println(nombres);
-
+        this.nombres = vendedorDAO.consultarNombres(usuario);
     }
 
     public String getUsuario() {

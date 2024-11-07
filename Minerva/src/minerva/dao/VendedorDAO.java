@@ -45,7 +45,7 @@ public class VendedorDAO {
             
         } catch (Exception e) {
             contrasenaDB = "404";
-        }       
+        } 
         
         return contrasenaDB; 
     }
@@ -80,7 +80,7 @@ public class VendedorDAO {
         return nombres;
     }
    
-    private <T> Object consultar(T param, String query, String columna) throws Exception {
+    private <T> Object consultar(T valorBusqueda, String query, String columnaConsulta) throws Exception {
         PreparedStatement preparedStatement;
         ResultSet resultSet;       
         Object result = null;
@@ -89,12 +89,12 @@ public class VendedorDAO {
             connection = mySQLConnector.getConnection();
             
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setObject(1, param);
+            preparedStatement.setObject(1, valorBusqueda);
             
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
-                result = resultSet.getObject(columna);
+                result = resultSet.getObject(columnaConsulta);
             }            
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.toString());

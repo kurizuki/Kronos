@@ -12,79 +12,98 @@ import java.sql.SQLException;
  */
 public class VendedorDAO {
     private Connection connection;
-
+    
     public VendedorDAO() {
+        
     }
     
-    public boolean consultarExistenciaUsuario(String usuario) {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+    public boolean consultarExisteUsuario(String usuario) {
         final String QUERY = "SELECT Usuario FROM vendedor WHERE Usuario=?";
+        String usuarioDB = "";
+        
+        try {
+            
+            usuarioDB = (String) consultar(usuario, QUERY, "Usuario");
 
-        try (MySQLConnector mySQLConnector = new MySQLConnector()) {
-            connection = mySQLConnector.getConnection();
-            preparedStatement = connection.prepareStatement(QUERY);
-            preparedStatement.setString(1, usuario);
-            resultSet = preparedStatement.executeQuery();            
-            while (resultSet.next()) {        
-                String usuarioDB = resultSet.getString("Usuario");
-                if (usuarioDB.equals(usuario)) {
-                    return true; // RETORNA TRUE SI EL USUARIO EXISTE
-                }
-            } 
-        } catch (SQLException e) {
-            System.out.println("ERROR: " + e.toString());
+        } catch (Exception e) {
+            return false; // RETORNA FALSE SI LO QUE DEVUELVE LA BASE DE DATOS ES NULO
         }
-
+        
+        if (usuarioDB.equals(usuario)) {
+            return true; // RETORNA TRUE SI EL USUARIO EXISTE
+        }
         return false; // RETORNA FALSE SI EL USUARIO NO EXISTE
     }
     
-    public String consultarContrasena(String usuario, String contrasena) {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+    public String consultarContrasena(String usuario) {
         final String QUERY = "SELECT Contrasena FROM vendedor WHERE Usuario=?";
         String contrasenaDB = "";
         
-        try (MySQLConnector mySQLConnector = new MySQLConnector()){
-            connection = mySQLConnector.getConnection();
-
-            preparedStatement = connection.prepareStatement(QUERY);
-            preparedStatement.setString(1, usuario);
-            resultSet = preparedStatement.executeQuery();
+        try {
             
-            while (resultSet.next()) {        
-                contrasenaDB = resultSet.getString("Contrasena");
-                return contrasenaDB;
-            }
-        } catch (SQLException e) {
-            System.out.println("ERROR: " + e.toString());
-        }
-
+            contrasenaDB = (String) consultar(usuario, QUERY, "Contrasena");
+            
+        } catch (Exception e) {
+            contrasenaDB = "404";
+        }       
+        
         return contrasenaDB; 
     }
-    
-    public String[] consultarDatos(String usuario) {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        final String QUERY = "SELECT VendedorID, Nombres, Usuario FROM vendedor WHERE Usuario=?";
-        String[] datosVendedor = new String[3];
+ 
+    public int consultarID(String usuario) {
+        final String QUERY = "SELECT VendedorID FROM vendedor WHERE Usuario=?";
+        int usuarioID = 0;
         
+        try {
+            
+            usuarioID = (int) (long) consultar(usuario, QUERY, "VendedorID");
+            
+        } catch (Exception e) {
+            usuarioID = -404;
+        }
+        
+        return  usuarioID; 
+    }
+    
+    public String consultarNombres(String usuario) {        
+        final String QUERY = "SELECT Nombres FROM vendedor WHERE Usuario=?";
+        String nombres = "";
+        
+        try {
+        
+            nombres = (String) consultar(usuario, QUERY, "Nombres");
+        
+        } catch (Exception e) {
+            nombres = "404";
+        }
+        
+        return nombres;
+    }
+   
+    private <T> Object consultar(T param, String query, String columna) throws Exception {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;       
+        Object result = null;
+
         try (MySQLConnector mySQLConnector = new MySQLConnector()){
             connection = mySQLConnector.getConnection();
-
-            preparedStatement = connection.prepareStatement(QUERY);
-            preparedStatement.setString(1, usuario);
+            
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setObject(1, param);
+            
             resultSet = preparedStatement.executeQuery();
             
-            while (resultSet.next()) {   
-                datosVendedor[0] = String.valueOf(resultSet.getInt("VendedorID"));
-                datosVendedor[1] = resultSet.getString("Nombres");
-                datosVendedor[2] = resultSet.getString("Usuario");
-            }
+            if (resultSet.next()) {
+                result = resultSet.getObject(columna);
+            }            
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.toString());
         }
-
-        return datosVendedor; // RETORNA FALSE SI LAS CREDENCIALES SON INVALIDAS
+        
+        if (result == null) {
+            throw new Exception("ITEM NO ENCONTRADO");
+        }
+        
+        return result;
     }
 }

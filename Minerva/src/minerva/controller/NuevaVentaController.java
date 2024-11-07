@@ -1,7 +1,5 @@
 package minerva.controller;
 
-import minerva.model.Vendedor;
-
 /**
  *
  * @author L

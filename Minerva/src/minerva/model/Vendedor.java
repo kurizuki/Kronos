@@ -7,9 +7,9 @@ import minerva.dao.VendedorDAO;
  * @author L
  */
 public class Vendedor implements Autenticable{
-    private String VendedorID;
-    private String Nombres;
-    private String Usuario;
+    private int vendedorID = -1;
+    private String nombres;
+    private String usuario;
     private VendedorDAO vendedorDAO = new VendedorDAO();
 
     public Vendedor() {
@@ -18,7 +18,7 @@ public class Vendedor implements Autenticable{
     // VALIDA SI EL VENDEDOR EXISTE EN LA BASE DE DATOS
     @Override
     public boolean validarUsuario(String usuario) {
-        boolean usaurioExiste = vendedorDAO.consultarExistenciaUsuario(usuario);
+        boolean usaurioExiste = vendedorDAO.consultarExisteUsuario(usuario);
         return usaurioExiste;
     }
     
@@ -29,7 +29,7 @@ public class Vendedor implements Autenticable{
             return false;
         }
         
-        String contrasenaDB = vendedorDAO.consultarContrasena(usuario, contrasena);
+        String contrasenaDB = vendedorDAO.consultarContrasena(usuario);
         if (contrasenaDB.equals(contrasena)) {
             return true;
         }
@@ -37,17 +37,27 @@ public class Vendedor implements Autenticable{
     }
     
     public void asignarDatosVendedor(String usuario) {
-        String[] datosUsuario = new String[3];
-        datosUsuario = vendedorDAO.consultarDatos(usuario);
-        
-        this.VendedorID = datosUsuario[0];
-        this.Nombres = datosUsuario[1];
-        this.Usuario = datosUsuario[2];
-        
+        // VALIDAMOS QUE EL USUARIO EXISTE
+        if (!vendedorDAO.consultarExisteUsuario(usuario)) {
+            return;
+        }
+        System.out.println("TAMOS JOYA");
+        this.usuario = usuario;
+        System.out.println(this.usuario);
+                System.out.println("TAMOS JOYA");
+
+        this.vendedorID = vendedorDAO.consultarID(usuario);
+                                System.out.println(vendedorID);
+
+                System.out.println("TAMOS JOYA");
+
+        this.nombres = vendedorDAO.consultarNombres(usuario); 
+        System.out.println(nombres);
+
     }
 
     public String getUsuario() {
-        return Usuario;
+        return usuario;
     }
  
 }

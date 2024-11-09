@@ -5,6 +5,6 @@ package minerva.model;
  * @author L
  */
 public interface Autenticable {
-    public boolean validarUsuario(String usuario);
-    public boolean validarCredenciales(String usuario, String contrasena);
+    boolean validarUsuario(String usuario);
+    boolean validarCredenciales(String usuario, String contrasena);
 }

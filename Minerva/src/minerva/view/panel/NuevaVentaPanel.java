@@ -1,5 +1,6 @@
 package minerva.view.panel;
 
+import javax.swing.table.DefaultTableModel;
 import minerva.controller.NuevaVentaController;
 import minerva.controller.SystemController;
 
@@ -11,19 +12,23 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     // CONTROLLER
     NuevaVentaController nuevaVentaController = null;
     
+    // INSTANCIAS PARA INTERACTUAR CON LA TABLA
+    DefaultTableModel model;
+    
     public NuevaVentaPanel(SystemController systemController) {
         initComponents();
+        model = (DefaultTableModel) tablaNuevaVenta.getModel();
         nuevaVentaController= new NuevaVentaController(systemController);
         asignarDatosVendedorPanel();
         asignarDatosClientePanel();
     }
       
     private void asignarDatosVendedorPanel() {
-        vendedorUsuarioLabel.setText(nuevaVentaController.getVendedorUsuario());
+        vendedorUsuarioTextField.setText(nuevaVentaController.getVendedorUsuario());
     }
     
     private void asignarDatosClientePanel() {
-        nombreCliente.setText(nuevaVentaController.getNombreCliente());
+        nombreClienteTextField.setText(nuevaVentaController.getNombreCliente());
     }
 
     /**
@@ -35,47 +40,48 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        body = new javax.swing.JTabbedPane();
+        TablaPanel = new javax.swing.JTabbedPane();
         panel_1 = new javax.swing.JPanel();
-        codigo = new javax.swing.JLabel();
-        descripcion = new javax.swing.JLabel();
-        nombreCliente = new javax.swing.JTextField();
-        stock = new javax.swing.JLabel();
+        VendedorLabel = new javax.swing.JLabel();
+        ClienteLabel = new javax.swing.JLabel();
+        nombreClienteTextField = new javax.swing.JTextField();
+        stockLabel = new javax.swing.JLabel();
         eliminar = new javax.swing.JButton();
         tabla_nuevaVenta = new javax.swing.JScrollPane();
-        tabla_1 = new javax.swing.JTable();
+        tablaNuevaVenta = new javax.swing.JTable();
         botonRegistrarEImprimir = new javax.swing.JButton();
-        total = new javax.swing.JLabel();
-        total_precio = new javax.swing.JLabel();
+        TotalAPagarLabel = new javax.swing.JLabel();
+        TotalPagarTextField = new javax.swing.JLabel();
         botonImprimir = new javax.swing.JButton();
-        botonRegistrarVenta = new javax.swing.JButton();
-        codigo1 = new javax.swing.JLabel();
-        javax.swing.JTextField codigoTXT1 = new javax.swing.JTextField();
-        javax.swing.JTextField codigoTXT2 = new javax.swing.JTextField();
-        codigo2 = new javax.swing.JLabel();
-        vendedorUsuarioLabel = new javax.swing.JLabel();
-        stockLabel = new javax.swing.JLabel();
+        botonFinalizarVenta = new javax.swing.JButton();
+        codigoLabel = new javax.swing.JLabel();
+        codigoTextField = new javax.swing.JTextField();
+        cantidadTextField = new javax.swing.JTextField();
+        CantidadLabel = new javax.swing.JLabel();
+        vendedorUsuarioTextField = new javax.swing.JLabel();
+        stockTextField = new javax.swing.JLabel();
+        botonRegistrarVentaTabla = new javax.swing.JButton();
 
-        body.addAncestorListener(new javax.swing.event.AncestorListener() {
+        TablaPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                bodyAncestorMoved(evt);
+                TablaPanelAncestorMoved(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
-        codigo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        codigo.setText("Vendedor");
+        VendedorLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        VendedorLabel.setText("Vendedor");
 
-        descripcion.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        descripcion.setText("Cliente");
+        ClienteLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        ClienteLabel.setText("Cliente");
 
-        nombreCliente.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nombreClienteTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        stock.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        stock.setText("Stock ");
+        stockLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        stockLabel.setText("Stock ");
 
         eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -85,8 +91,8 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             }
         });
 
-        tabla_1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        tabla_1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaNuevaVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        tablaNuevaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
             },
@@ -109,12 +115,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabla_nuevaVenta.setViewportView(tabla_1);
-        if (tabla_1.getColumnModel().getColumnCount() > 0) {
-            tabla_1.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tabla_1.getColumnModel().getColumn(1).setPreferredWidth(50);
-            tabla_1.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tabla_1.getColumnModel().getColumn(5).setPreferredWidth(15);
+        tabla_nuevaVenta.setViewportView(tablaNuevaVenta);
+        if (tablaNuevaVenta.getColumnModel().getColumnCount() > 0) {
+            tablaNuevaVenta.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaNuevaVenta.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tablaNuevaVenta.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tablaNuevaVenta.getColumnModel().getColumn(5).setPreferredWidth(15);
         }
 
         botonRegistrarEImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
@@ -125,12 +131,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             }
         });
 
-        total.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        total.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/money.png"))); // NOI18N
-        total.setText("TOTAL A PAGAR");
+        TotalAPagarLabel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        TotalAPagarLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/money.png"))); // NOI18N
+        TotalAPagarLabel.setText("TOTAL A PAGAR");
 
-        total_precio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        total_precio.setText("-----");
+        TotalPagarTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        TotalPagarTextField.setText("-----");
 
         botonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
         botonImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -140,37 +146,55 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             }
         });
 
-        botonRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
-        botonRegistrarVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+        botonFinalizarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
+        botonFinalizarVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonFinalizarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrarVentaregistrarProductoActionPerformed(evt);
+                botonFinalizarVentaregistrarProductoActionPerformed(evt);
             }
         });
 
-        codigo1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        codigo1.setText("Codigo");
+        codigoLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        codigoLabel.setText("Codigo");
 
-        codigoTXT1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        codigoTXT1.addActionListener(new java.awt.event.ActionListener() {
+        codigoTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoTXT1ActionPerformed(evt);
+                codigoTextFieldActionPerformed(evt);
+            }
+        });
+        codigoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoTextFieldKeyTyped(evt);
             }
         });
 
-        codigoTXT2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        codigoTXT2.addActionListener(new java.awt.event.ActionListener() {
+        cantidadTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        cantidadTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoTXT2ActionPerformed(evt);
+                cantidadTextFieldActionPerformed(evt);
+            }
+        });
+        cantidadTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadTextFieldKeyTyped(evt);
             }
         });
 
-        codigo2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        codigo2.setText("Cantidad");
+        CantidadLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        CantidadLabel.setText("Cantidad");
 
-        vendedorUsuarioLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        vendedorUsuarioTextField.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
-        stockLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        stockTextField.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
+        botonRegistrarVentaTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
+        botonRegistrarVentaTabla.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonRegistrarVentaTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarVentaTablaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
@@ -179,38 +203,40 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(codigo)
-                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(VendedorLabel)
+                    .addComponent(vendedorUsuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descripcion)
-                    .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ClienteLabel)
+                    .addComponent(nombreClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addComponent(eliminar)
                 .addGap(19, 19, 19))
             .addGroup(panel_1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(codigo1)
-                    .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codigoLabel)
+                    .addComponent(codigoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(codigo2)
-                    .addComponent(codigoTXT2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                    .addComponent(CantidadLabel)
+                    .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(botonRegistrarVentaTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
                 .addComponent(botonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonRegistrarEImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonRegistrarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(total)
+                .addComponent(TotalAPagarLabel)
                 .addGap(42, 42, 42)
-                .addComponent(total_precio)
+                .addComponent(TotalPagarTextField)
                 .addGap(37, 37, 37))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -224,18 +250,18 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codigo)
-                            .addComponent(stock)
-                            .addComponent(descripcion))
+                            .addComponent(VendedorLabel)
+                            .addComponent(stockLabel)
+                            .addComponent(ClienteLabel))
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreCliente)
-                                    .addComponent(vendedorUsuarioLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(nombreClienteTextField)
+                                    .addComponent(vendedorUsuarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(stockLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3))))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -246,23 +272,24 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonRegistrarEImprimir)
                     .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(total)
-                        .addComponent(total_precio))
-                    .addComponent(botonRegistrarVenta)
+                        .addComponent(TotalAPagarLabel)
+                        .addComponent(TotalPagarTextField))
+                    .addComponent(botonFinalizarVenta)
                     .addComponent(botonImprimir)
                     .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panel_1Layout.createSequentialGroup()
-                            .addComponent(codigo2)
+                            .addComponent(CantidadLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(codigoTXT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panel_1Layout.createSequentialGroup()
-                            .addComponent(codigo1)
+                            .addComponent(codigoLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(codigoTXT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(codigoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botonRegistrarVentaTabla))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
-        body.addTab("NuevaVenta", panel_1);
+        TablaPanel.addTab("NuevaVenta", panel_1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -272,7 +299,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TablaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -281,22 +308,46 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TablaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bodyAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_bodyAncestorMoved
+    private void TablaPanelAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TablaPanelAncestorMoved
         // TODO add your handling code here:
-    }//GEN-LAST:event_bodyAncestorMoved
+    }//GEN-LAST:event_TablaPanelAncestorMoved
 
-    private void codigoTXT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTXT1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigoTXT1ActionPerformed
+    private void botonRegistrarVentaTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaTablaActionPerformed
+        int codigoBarras;
+        try {
+            codigoBarras = Integer.parseInt(codigoTextField.getText());
+        } catch (Exception e) {
+            return;
+        }
+        Object[] producto = nuevaVentaController.consultarDatosProducto(codigoBarras);
+        Object[] object = new Object[model.getColumnCount()];
+        
+        object[0] = producto[0];
+        object[1] = producto[1];
+        object[2] = producto[3];
+        object[3] = cantidadTextField.getText();
+        object[4] = producto[2];
+        object[5] = 5000;
+        
+        model.addRow(object); 
+    }//GEN-LAST:event_botonRegistrarVentaTablaActionPerformed
 
-    private void botonRegistrarVentaregistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaregistrarProductoActionPerformed
+    private void cantidadTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonRegistrarVentaregistrarProductoActionPerformed
+    }//GEN-LAST:event_cantidadTextFieldActionPerformed
+
+    private void codigoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoTextFieldActionPerformed
+
+    private void botonFinalizarVentaregistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarVentaregistrarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonFinalizarVentaregistrarProductoActionPerformed
 
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
         // TODO add your handling code here:
@@ -310,29 +361,46 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarActionPerformed
 
-    private void codigoTXT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTXT2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigoTXT2ActionPerformed
+    private void codigoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoTextFieldKeyTyped
+        // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
+        char c = evt.getKeyChar();
+        
+        if (c<'0' || c> '9') {
+            evt.consume();            
+        }
+    }//GEN-LAST:event_codigoTextFieldKeyTyped
+
+    private void cantidadTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadTextFieldKeyTyped
+        // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
+        char c = evt.getKeyChar();
+        
+        if (c<'0' || c> '9') {
+            evt.consume();            
+        }
+    }//GEN-LAST:event_cantidadTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane body;
+    private javax.swing.JLabel CantidadLabel;
+    private javax.swing.JLabel ClienteLabel;
+    private javax.swing.JTabbedPane TablaPanel;
+    private javax.swing.JLabel TotalAPagarLabel;
+    private javax.swing.JLabel TotalPagarTextField;
+    private javax.swing.JLabel VendedorLabel;
+    private javax.swing.JButton botonFinalizarVenta;
     private javax.swing.JButton botonImprimir;
     private javax.swing.JButton botonRegistrarEImprimir;
-    private javax.swing.JButton botonRegistrarVenta;
-    private javax.swing.JLabel codigo;
-    private javax.swing.JLabel codigo1;
-    private javax.swing.JLabel codigo2;
-    private javax.swing.JLabel descripcion;
+    private javax.swing.JButton botonRegistrarVentaTabla;
+    private javax.swing.JTextField cantidadTextField;
+    private javax.swing.JLabel codigoLabel;
+    private javax.swing.JTextField codigoTextField;
     private javax.swing.JButton eliminar;
-    private javax.swing.JTextField nombreCliente;
+    private javax.swing.JTextField nombreClienteTextField;
     private javax.swing.JPanel panel_1;
-    private javax.swing.JLabel stock;
     private javax.swing.JLabel stockLabel;
-    private javax.swing.JTable tabla_1;
+    private javax.swing.JLabel stockTextField;
+    private javax.swing.JTable tablaNuevaVenta;
     private javax.swing.JScrollPane tabla_nuevaVenta;
-    private javax.swing.JLabel total;
-    private javax.swing.JLabel total_precio;
-    private javax.swing.JLabel vendedorUsuarioLabel;
+    private javax.swing.JLabel vendedorUsuarioTextField;
     // End of variables declaration//GEN-END:variables
 }

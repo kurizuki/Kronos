@@ -1,5 +1,8 @@
 package minerva.controller;
 
+import minerva.model.Producto;
+import minerva.model.Vendedor;
+
 /**
  *
  * @author L
@@ -7,30 +10,30 @@ package minerva.controller;
 public class NuevaVentaController {
     private SystemController systemController = null;
     
-    private String vendedorUsuario = "Te saltaste el Login XD";
-    private String nombreCliente   = "Anonimo";
-
+    private Vendedor vendedor = null;
+    private String nombreCliente;
+    private Producto producto = new Producto();
+    
     public NuevaVentaController() {
     }
 
     public NuevaVentaController(SystemController systemController) {
         this.systemController = systemController;
-        asignarDatosVendedor();
-        asignarDatosCliente();
+        vendedor = systemController.getVendedor();
     }
 
     public String getVendedorUsuario() {
-        return this.vendedorUsuario;
+        return this.vendedor.getUsuario();
     }
     
     public String getNombreCliente() {
         return this.nombreCliente;
     }
-
-    private void asignarDatosVendedor() {
-        this.vendedorUsuario = systemController.getVendedorUsuario();
-    }
     
+    public Object[] consultarDatosProducto(int codigoBarras) {
+        return Producto.consultarDatosProducto(codigoBarras);
+    }
+   
     private void asignarDatosCliente() {
         
     }

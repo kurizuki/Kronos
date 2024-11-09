@@ -7,7 +7,7 @@ import minerva.model.Vendedor;
  * @author L
  */
 public class SystemController {
-    private Vendedor vendedor = new Vendedor();    
+    private Vendedor vendedor = new Vendedor();
 
     public SystemController() {
     }
@@ -16,8 +16,8 @@ public class SystemController {
         vendedor.asignarDatosVendedor(usuario);
     }
 
-    public String getVendedorUsuario() {
-        return vendedor.getUsuario();
+    public Vendedor getVendedor() {
+        return vendedor;
     }
     
 }

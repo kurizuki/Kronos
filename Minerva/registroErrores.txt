@@ -1,0 +1,20 @@
+MENSAJE: CONEXION CON LA BASE DE DATOS APOLO RECHAZADA
+
+FECHA:  2024-11-09
+HORA :  15:52:59
+
+DETALLES:
+java.lang.ArithmeticException: / by zero
+--------------------------------------------------------
+
+
+MENSAJE: Conexion con la base de datos APOLO rechazada
+
+FECHA:  2024-11-09
+HORA :  15:53:40
+
+DETALLES:
+java.lang.ArithmeticException: / by zero
+--------------------------------------------------------
+
+

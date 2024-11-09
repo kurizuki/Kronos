@@ -21,6 +21,5 @@ public class LoginController {
         }
         return false; // SI LA CONTRASEÑA NO ES VALIDA DEVUELVE FALSE
     }
-    
-    
+       
 }

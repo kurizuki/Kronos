@@ -20,7 +20,7 @@
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="body" min="-2" pref="1080" max="-2" attributes="0"/>
+                  <Component id="TablaPanel" min="-2" pref="1080" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -32,7 +32,7 @@
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="body" min="-2" pref="610" max="-2" attributes="0"/>
+                  <Component id="TablaPanel" min="-2" pref="610" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -40,9 +40,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="body">
+    <Container class="javax.swing.JTabbedPane" name="TablaPanel">
       <Events>
-        <EventHandler event="ancestorMoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="bodyAncestorMoved"/>
+        <EventHandler event="ancestorMoved" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="TablaPanelAncestorMoved"/>
       </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -62,18 +62,18 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codigo" min="-2" max="-2" attributes="0"/>
-                          <Component id="vendedorUsuarioLabel" min="-2" pref="209" max="-2" attributes="0"/>
+                          <Component id="VendedorLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="vendedorUsuarioTextField" min="-2" pref="209" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="descripcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombreCliente" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Component id="ClienteLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombreClienteTextField" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="stock" min="-2" pref="64" max="-2" attributes="0"/>
-                          <Component id="stockLabel" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="stockLabel" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="stockTextField" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="eliminar" min="-2" max="-2" attributes="0"/>
@@ -82,24 +82,26 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codigo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoTXT1" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="codigoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="codigoTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codigo2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoTXT2" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="CantidadLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cantidadTextField" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="210" max="32767" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <Component id="botonRegistrarVentaTabla" min="-2" pref="90" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       <Component id="botonImprimir" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="botonRegistrarEImprimir" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="botonRegistrarVenta" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="botonFinalizarVenta" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="total" min="-2" max="-2" attributes="0"/>
+                      <Component id="TotalAPagarLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="total_precio" min="-2" max="-2" attributes="0"/>
+                      <Component id="TotalPagarTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -116,21 +118,21 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="codigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="stock" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="descripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="VendedorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="stockLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ClienteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="nombreCliente" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="vendedorUsuarioLabel" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nombreClienteTextField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="vendedorUsuarioTextField" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="stockLabel" min="-2" pref="22" max="-2" attributes="0"/>
+                                      <Component id="stockTextField" min="-2" pref="22" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -146,23 +148,24 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="botonRegistrarEImprimir" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="total" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="total_precio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TotalAPagarLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TotalPagarTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="botonRegistrarVenta" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="botonFinalizarVenta" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="botonImprimir" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="codigo2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="CantidadLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="codigoTXT2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cantidadTextField" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="codigo1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="codigoLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="codigoTXT1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="codigoTextField" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="botonRegistrarVentaTabla" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="62" max="32767" attributes="0"/>
                   </Group>
@@ -170,7 +173,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="codigo">
+            <Component class="javax.swing.JLabel" name="VendedorLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -178,7 +181,7 @@
                 <Property name="text" type="java.lang.String" value="Vendedor"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="descripcion">
+            <Component class="javax.swing.JLabel" name="ClienteLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -186,14 +189,14 @@
                 <Property name="text" type="java.lang.String" value="Cliente"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="nombreCliente">
+            <Component class="javax.swing.JTextField" name="nombreClienteTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="stock">
+            <Component class="javax.swing.JLabel" name="stockLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -221,7 +224,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tabla_1">
+                <Component class="javax.swing.JTable" name="tablaNuevaVenta">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Roboto" size="12" style="0"/>
@@ -290,7 +293,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRegistrarEImprimirProductoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="total">
+            <Component class="javax.swing.JLabel" name="TotalAPagarLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
@@ -301,7 +304,7 @@
                 <Property name="text" type="java.lang.String" value="TOTAL A PAGAR"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="total_precio">
+            <Component class="javax.swing.JLabel" name="TotalPagarTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
@@ -322,7 +325,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonImprimirActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botonRegistrarVenta">
+            <Component class="javax.swing.JButton" name="botonFinalizarVenta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/print.png"/>
@@ -332,10 +335,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRegistrarVentaregistrarProductoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonFinalizarVentaregistrarProductoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="codigo1">
+            <Component class="javax.swing.JLabel" name="codigoLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -343,14 +346,15 @@
                 <Property name="text" type="java.lang.String" value="Codigo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="codigoTXT1">
+            <Component class="javax.swing.JTextField" name="codigoTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codigoTXT1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codigoTextFieldActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="codigoTextFieldKeyTyped"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
@@ -358,14 +362,15 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="codigoTXT2">
+            <Component class="javax.swing.JTextField" name="cantidadTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codigoTXT2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cantidadTextFieldActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cantidadTextFieldKeyTyped"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
@@ -373,7 +378,7 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="codigo2">
+            <Component class="javax.swing.JLabel" name="CantidadLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
@@ -381,19 +386,32 @@
                 <Property name="text" type="java.lang.String" value="Cantidad"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="vendedorUsuarioLabel">
+            <Component class="javax.swing.JLabel" name="vendedorUsuarioTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="stockLabel">
+            <Component class="javax.swing.JLabel" name="stockTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="12" style="1"/>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="botonRegistrarVentaTabla">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Imagenes/print.png"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRegistrarVentaTablaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

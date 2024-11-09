@@ -16,7 +16,7 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         //CENTRALIZA LA VENTANA DEL PROGRAMA
         this.setLocationRelativeTo(null);   
-        asignarListener();
+        asignarListenerEnter();
     }
     
     private void validar(){
@@ -34,11 +34,11 @@ public class LoginView extends javax.swing.JFrame {
             puntoVentaView.setVisible(true);            
             dispose();           
         } else {
-            JOptionPane.showMessageDialog(null, "El correo o contraseña invalidos");
+            JOptionPane.showMessageDialog(null, "Correo o contraseña invalidos");
         }
     }
     
-    private void asignarListener() {
+    private void asignarListenerEnter() {
         passwordTxT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {

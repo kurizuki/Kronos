@@ -1,6 +1,6 @@
 package minerva.view.panel;
 
-import minerva.controller.ProductosController;
+//import minerva.controller.ProductoController;
 
 /**
  *
@@ -9,7 +9,7 @@ import minerva.controller.ProductosController;
 public class ProductosPanel extends javax.swing.JPanel {
 
     // CONTROLLER
-    ProductosController productosController= new ProductosController();
+    //ProductoController productosController= new ProductoController();
     
     public ProductosPanel() {
         initComponents();

@@ -7,7 +7,7 @@ package minerva.model;
 public class DetalleVenta {
     private Producto producto;
     private int cantidad;
-    private double montoTotal = 0;
+    private double montoTotal;
 
     public DetalleVenta() {
     }
@@ -22,9 +22,15 @@ public class DetalleVenta {
     public double getMontoTotal() {
         return montoTotal;
     }
-    
-    
-    
+
+    public void setCantidad(int cantidad) {
+        if (cantidad > 0) {
+            this.cantidad = cantidad;
+        
+            calcularMontoTotal();
+        }        
+    }
+
     private void calcularMontoTotal() {
         montoTotal = producto.getPrecio() * cantidad;
     }

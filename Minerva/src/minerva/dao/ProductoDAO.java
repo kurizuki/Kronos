@@ -4,19 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import minerva.model.MySQLConnector;
 
 /**
  *
  * @author L
  */
 public class ProductoDAO {
-    private Connection connection;
-
     public ProductoDAO() {
     }
     
-    public boolean consultarExisteProductoPorID(int productoID) {
+    public boolean consultarExistePorID(int productoID) {
         int productoIDDB = (int) consultarPorID(productoID, "ProductoID");
         
         if (productoID == productoIDDB) {
@@ -26,7 +23,7 @@ public class ProductoDAO {
         return false; // RETORNA FALSE SI EL PRODCUTO NO EXISTE
     }
     
-    public boolean consultarExisteProductoPorBarras(int codigoBarras) {
+    public boolean consultarExistePorBarras(int codigoBarras) {
         int productoCodigoBarrasDB = (int) consultarPorBarras(codigoBarras, "CodigoBarras");
         
         if (codigoBarras == productoCodigoBarrasDB) {
@@ -36,11 +33,11 @@ public class ProductoDAO {
         return false; // RETORNA FALSE SI EL PRODCUTO NO EXISTE
     }
     
-    public int consultarProductoID(int codigoBarras) {
+    public int consultarID(int codigoBarras) {
         return (int) consultarPorBarras(codigoBarras, "CodigoBarras");
     }
     
-    public int consultarProductoCodigoBarras(int productoID) {
+    public int consultarCodigoBarras(int productoID) {
         return (int) consultarPorID(productoID, "ProductoID");
     }
     
@@ -129,7 +126,7 @@ public class ProductoDAO {
         Object result = null;
 
         try (MySQLConnector mySQLConnector = new MySQLConnector()){
-            connection = mySQLConnector.getConnection();
+            Connection connection = mySQLConnector.getConnection();
             
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setObject(1, valorBusqueda);

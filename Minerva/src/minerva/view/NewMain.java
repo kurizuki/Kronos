@@ -1,10 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
 package minerva.view;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import minerva.model.ExceptionHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import minerva.model.Producto;
+import minerva.model.ProductoDTO;
 
 /**
  *
@@ -16,36 +19,14 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         try {
-            int a = 1/0;
-        } catch (Exception e) {
-            final String message = "Conexion con la base de datos " + "APOLO" + " rechazada";
-            ExceptionHandler exceptionHandler = new ExceptionHandler(message, e.toString());
+            for (ProductoDTO productoDTO : Producto.listarProductoDTO()) {
+                System.out.println(productoDTO.getNombre());
+            }
+            System.out.println("CREO QUE SI HAY ALGO");
+        } catch (Exception ex) {
+            System.out.println("NO HAY NADADADADADA");
         }
     }
-//    private boolean consultarExisteProducto(String productoID) {
-//        PreparedStatement preparedStatement;
-//        ResultSet resultSet;
-//        final String QUERY = "SELECT ProductoID FROM producto WHERE ProductoID=?";
-//        String productoIDDB = "";
-//
-//        try (MySQLConnector mySQLConnector = new MySQLConnector()) {
-//            Connection connection = mySQLConnector.getConnection();
-//            preparedStatement = connection.prepareStatement(QUERY);
-//            preparedStatement.setString(1, productoID);
-//            resultSet = preparedStatement.executeQuery();            
-//            while (resultSet.next()) {        
-//                productoIDDB = String.valueOf(resultSet.getInt("ProductoID"));
-//                if (productoIDDB.equals(productoID)) {
-//                    return true; // RETORNA TRUE SI EL USUARIO EXISTE
-//                }
-//            } 
-//        } catch (SQLException e) {
-//            System.out.println("ERROR: " + e.toString());
-//        }
-//
-//        return false; // RETORNA FALSE SI EL USUARIO NO EXISTE
-//    }
-
+    
 }

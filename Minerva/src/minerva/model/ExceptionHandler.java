@@ -13,10 +13,11 @@ import javax.swing.JOptionPane;
  * @author L
  */
 public class ExceptionHandler {
-    private String message;
-    private String cause;
-    private String localDate;
-    private String localTime;
+    private String tituloError;
+    private String detelleError;
+    private String fechaActual;
+    private String horaActual;
+    private String mensajeError;
 
     public ExceptionHandler() {
     }
@@ -27,25 +28,26 @@ public class ExceptionHandler {
      * @param cause Detalles del error
      */
     public ExceptionHandler(String message, String cause) {
-        this.message   = message;
-        this.cause     = cause;
+        this.tituloError   = message;
+        this.detelleError = cause;
         
-        manejarError();
+        manejarException();
     }    
     
-    private void manejarError() {
-        establecerTiempo();
+    private void manejarException() {
+        establecerTiempoActual();
         registrarErrorTxt();
-        mostrarMensajeAlUsuario();
+        crearMensajeErrorParaUsuario();
+        mostrarMensaje(mensajeError);
     }
     
     /**
      * Eestablece la hora y fechas actuales
      */
-    private void establecerTiempo() {
-        this.localDate = LocalDate.now().toString();
+    private void establecerTiempoActual() {
+        this.fechaActual = LocalDate.now().toString();
         // FORMATE DE LA HORA
-        this.localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        this.horaActual = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }   
     
     /**
@@ -53,7 +55,7 @@ public class ExceptionHandler {
      */
     private void registrarErrorTxt() {
         final String NOMBRE_ARCHIVO = "registroErrores.txt"; // Nombre del archivo donde se registrarán los errores
-        final String MENSAJE_ERROR = """
+        mensajeError = """
                              MENSAJE: %s
 
                              FECHA:  %s
@@ -64,34 +66,35 @@ public class ExceptionHandler {
                              --------------------------------------------------------
 
 
-                             """.formatted(message, localDate, localTime, cause);
+                             """.formatted(tituloError, fechaActual, horaActual, detelleError);
        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO, true))) {
-            writer.write(MENSAJE_ERROR); // Escribir el mensaje de error en el archivo
+            writer.write(mensajeError); // Escribir el mensaje de error en el archivo
         } catch (IOException e) {
-            final String ERROR_AL_REGISTRAR ="""
-                                             ERROR AL REGISTRAR LOS ERRORES XD
-                                             
-                                             DETALLES:
-                                             %s
-                                             """.formatted( e.toString());
-        
-            JOptionPane.showMessageDialog(null, ERROR_AL_REGISTRAR , "ERROR", 0);
+            mensajeError =  """
+                                ERROR AL REGISTRAR LOS ERRORES XD
+
+                                DETALLES:
+                                %s
+                                """.formatted( e.toString());
+            mostrarMensaje(mensajeError);
         }
+    }
+    
+    private void crearMensajeErrorParaUsuario() {
+        mensajeError =  """
+                        MENSAJE: %s
+
+                        DETALLES: 
+                        %s                                                                         
+                        """.formatted(tituloError, detelleError);
     }
     
     /**
      * Muestra el mensaje de errro a traves de un pequelo cuadro de texto
      */
-    private void mostrarMensajeAlUsuario() {
-        final String MENSAJE_ERROR = """
-                                     MENSAJE: %s
-                         
-                                     DETALLES: 
-                                     %s                                                                         
-                                     """.formatted(message, cause);
-       
-        JOptionPane.showMessageDialog(null, MENSAJE_ERROR, "ERROR", 0);
+    private void mostrarMensaje(String mensajeError) {   
+        JOptionPane.showMessageDialog(null, mensajeError, "ERROR", 0);
     }
-      
+          
 }

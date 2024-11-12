@@ -1,50 +1,26 @@
 package minerva.model;
 
-import minerva.dao.VendedorDAO;
+import minerva.dao.IVendedorDAO;
+import minerva.dao.TablaVendedor;
 
 /**
  *
  * @author L
  */
-public class Vendedor implements Autenticable{
-    private int vendedorID;
-    private String nombres;
-    private String usuario;
-
-    public Vendedor() {
-    }
-    
-    public String getUsuario() {
-        return usuario;
-    }
-    
-    // VALIDA SI EL VENDEDOR EXISTE EN LA BASE DE DATOS
+public class Vendedor implements Autenticable{      
     @Override
-    public boolean validarUsuario(String usuario) {
-        return VendedorDAO.consultarExisteUsuario(usuario);
+    public String getContrasenaDB(String usuario) throws Exception {
+        IVendedorDAO iVendedorDAO = new TablaVendedor();
+        return iVendedorDAO.getContrasena(usuario);
     }
     
-    // VALIDA EL USUARIO Y CONTRASEÑA
-    @Override
-    public boolean validarCredenciales(String usuario, String contrasena) {
-        if (!validarUsuario(usuario)) {
-            return false;
-        }
-        
-        String contrasenaDB = VendedorDAO.consultarContrasena(usuario);
-        if (contrasenaDB.equals(contrasena)) {
-            return true;
-        }
-        return false;
+    public static VendedorDTO getVendedorDB(String usuario) throws Exception {
+        IVendedorDAO iVendedorDAO = new TablaVendedor();
+        return iVendedorDAO.getVendedor(usuario);
     }
     
-    public void asignarDatosVendedor(String usuario) {
-        // VALIDAMOS QUE EL USUARIO EXISTE EN LA DB
-        if (VendedorDAO.consultarExisteUsuario(usuario)) {
-            this.usuario = usuario;
-            this.vendedorID = VendedorDAO.consultarID(usuario);
-            this.nombres = VendedorDAO.consultarNombres(usuario);
-        }      
+    public boolean validarDatos(VendedorDTO vendedorDTO) {
+        return  false;
     }
 
 }

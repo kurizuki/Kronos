@@ -1,4 +1,4 @@
-package minerva.model;
+package minerva.config;
 
 /**
  *

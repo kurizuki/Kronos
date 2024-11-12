@@ -26,8 +26,7 @@ public class SystemView extends javax.swing.JFrame {
     ProductosPanel  productosPanel = null;
     VentasPanel     ventasPanel    = null;
 
-    public SystemView() {
-        
+    public SystemView() {       
     }
 
     public SystemView(String usuario) {

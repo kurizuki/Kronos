@@ -18,3 +18,23 @@ java.lang.ArithmeticException: / by zero
 --------------------------------------------------------
 
 
+MENSAJE: ERROR EN LA EJECUCION EN LA QUERY
+
+FECHA:  2024-11-11
+HORA :  11:10:24
+
+DETALLES:
+java.sql.SQLSyntaxErrorException: Table 'apolo.vendendor' doesn't exist
+--------------------------------------------------------
+
+
+MENSAJE: ERROR EN LA EJECUCION EN LA QUERY
+
+FECHA:  2024-11-11
+HORA :  11:10:56
+
+DETALLES:
+java.sql.SQLSyntaxErrorException: Table 'apolo.vendendor' doesn't exist
+--------------------------------------------------------
+
+

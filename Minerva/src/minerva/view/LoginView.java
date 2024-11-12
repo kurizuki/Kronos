@@ -19,7 +19,7 @@ public class LoginView extends javax.swing.JFrame {
         asignarListenerEnter();
     }
     
-    private void validar(){
+    private void validarCredenciales(){
         //VALIDA QUE LOS DATOS INGRESADOS EN EL LOGIN SEAN IGUALES A LOS USUARIOS DE LA BASE DE DATOS
         String usuario = userTxT.getText();
         String contrasena = String.valueOf(passwordTxT.getPassword());
@@ -271,7 +271,7 @@ public class LoginView extends javax.swing.JFrame {
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         //LLAMA AL METODO VALIDAR USUARIO AL PRESIONAR EL BOTON "ENTRAR"
-        validar();
+        validarCredenciales();
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
 
     

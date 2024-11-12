@@ -1,7 +1,6 @@
 package minerva.controller;
 
-import minerva.model.Producto;
-import minerva.model.Vendedor;
+import minerva.model.VendedorDTO;
 
 /**
  *
@@ -10,29 +9,33 @@ import minerva.model.Vendedor;
 public class NuevaVentaController {
     private SystemController systemController = null;
     
-    private Vendedor vendedor = null;
-    private String nombreCliente;
-    private Producto producto = new Producto();
+    private VendedorDTO vendedorDTO = null;
+    private String nombreCliente = "Anonimo";
     
     public NuevaVentaController() {
     }
 
     public NuevaVentaController(SystemController systemController) {
         this.systemController = systemController;
-        vendedor = systemController.getVendedor();
+        asignarDTO();
+    }
+    
+    // ASIGNAMOS LOS DTO QUE NECESITA EL PANEL    
+    private void asignarDTO() {
+        vendedorDTO = systemController.getVendedorDTO();
     }
 
-    public String getVendedorUsuario() {
-        return this.vendedor.getUsuario();
+    public String getUsuarioVendendor() {   
+        return vendedorDTO.getUsuario();
     }
     
     public String getNombreCliente() {
-        return this.nombreCliente;
+        return nombreCliente;
     }
     
-    public Object[] consultarDatosProducto(int codigoBarras) {
-        return Producto.consultarDatosProducto(codigoBarras);
-    }
+//    public Object[] consultarDatosProducto(int codigoBarras) {
+//        return Producto.consultarDatosProducto(codigoBarras);
+//    }
    
     private void asignarDatosCliente() {
         

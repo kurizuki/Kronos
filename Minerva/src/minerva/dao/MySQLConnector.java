@@ -9,7 +9,7 @@ import minerva.model.ExceptionHandler;
  *
  * @author L
  */
-class MySQLConnector implements AutoCloseable{    
+public class MySQLConnector implements IDataBaseConnector{    
     private static final String 
      DRIVER = "com.mysql.cj.jdbc.Driver",
      USUARIO    = "root",    
@@ -24,14 +24,15 @@ class MySQLConnector implements AutoCloseable{
     
     private Connection connection = null;
 
-    MySQLConnector() {         
+    public MySQLConnector() {         
     }
     
     /**
      * 
      * @return Devuelve la clase connection
      */
-    Connection getConnection() {
+    @Override
+    public Connection getConnection() {
         openConnection();
         return connection;
     }
@@ -39,7 +40,8 @@ class MySQLConnector implements AutoCloseable{
     /**
      * Establece la conexion con la DB
      */
-    private void openConnection() {
+    @Override    
+    public void openConnection() {
         ExceptionHandler exceptionHandler;
         try {
             // SE CARGA EL DRIVER 
@@ -56,7 +58,8 @@ class MySQLConnector implements AutoCloseable{
     /**
      * Cierra la conexion con la DB
      */
-    private void closeConnection() {
+    @Override
+    public void closeConnection() {
         ExceptionHandler exceptionHandler;
         try {
             if (connection != null && !connection.isClosed()) {

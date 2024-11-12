@@ -24,7 +24,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     }
       
     private void asignarDatosVendedorPanel() {
-        vendedorUsuarioTextField.setText(nuevaVentaController.getVendedorUsuario());
+        vendedorUsuarioTextField.setText(nuevaVentaController.getUsuarioVendendor());
     }
     
     private void asignarDatosClientePanel() {
@@ -324,17 +324,17 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             return;
         }
-        Object[] producto = nuevaVentaController.consultarDatosProducto(codigoBarras);
-        Object[] object = new Object[model.getColumnCount()];
+        //Object[] producto = nuevaVentaController.consultarDatosProducto(codigoBarras);
+//        Object[] object = new Object[model.getColumnCount()];
+//        
+//        object[0] = producto[0];
+//        object[1] = producto[1];
+//        object[2] = producto[3];
+//        object[3] = cantidadTextField.getText();
+//        object[4] = producto[2];
+//        object[5] = 5000;
         
-        object[0] = producto[0];
-        object[1] = producto[1];
-        object[2] = producto[3];
-        object[3] = cantidadTextField.getText();
-        object[4] = producto[2];
-        object[5] = 5000;
-        
-        model.addRow(object); 
+        //model.addRow(object); 
     }//GEN-LAST:event_botonRegistrarVentaTablaActionPerformed
 
     private void cantidadTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadTextFieldActionPerformed

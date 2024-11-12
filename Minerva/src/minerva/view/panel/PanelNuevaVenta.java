@@ -1,7 +1,7 @@
 package minerva.view.panel;
 
 import javax.swing.table.DefaultTableModel;
-import minerva.controller.ControllerNuevaVentaPanel;
+import minerva.controller.ControllerPanelNuevaVenta;
 import minerva.controller.ControllerSystem;
 
 /**
@@ -10,7 +10,7 @@ import minerva.controller.ControllerSystem;
  */
 public class PanelNuevaVenta extends javax.swing.JPanel {
     // CONTROLLER
-    ControllerNuevaVentaPanel nuevaVentaController = null;
+    ControllerPanelNuevaVenta controllerPanelNuevaVenta = null;
     
     // INSTANCIAS PARA INTERACTUAR CON LA TABLA
     DefaultTableModel model;
@@ -18,17 +18,12 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
     public PanelNuevaVenta(ControllerSystem systemController) {
         initComponents();
         model = (DefaultTableModel) tablaNuevaVenta.getModel();
-        nuevaVentaController= new ControllerNuevaVentaPanel(systemController);
-        asignarDatosVendedorPanel();
+        controllerPanelNuevaVenta= new ControllerPanelNuevaVenta(systemController);
         asignarDatosClientePanel();
-    }
-      
-    private void asignarDatosVendedorPanel() {
-        vendedorUsuarioTextField.setText(nuevaVentaController.getUsuarioVendendor());
-    }
-    
+    }      
+       
     private void asignarDatosClientePanel() {
-        nombreClienteTextField.setText(nuevaVentaController.getNombreCliente());
+        nombreClienteTextField.setText(controllerPanelNuevaVenta.getNombreCliente());
     }
 
     /**
@@ -42,7 +37,6 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
 
         TablaPanel = new javax.swing.JTabbedPane();
         panel_1 = new javax.swing.JPanel();
-        VendedorLabel = new javax.swing.JLabel();
         ClienteLabel = new javax.swing.JLabel();
         nombreClienteTextField = new javax.swing.JTextField();
         stockLabel = new javax.swing.JLabel();
@@ -57,7 +51,6 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
         codigoLabel = new javax.swing.JLabel();
         javax.swing.JTextField cantidadTextField = new javax.swing.JTextField();
         CantidadLabel = new javax.swing.JLabel();
-        vendedorUsuarioTextField = new javax.swing.JLabel();
         stockTextField = new javax.swing.JLabel();
         botonRegistrarVentaTabla = new javax.swing.JButton();
         javax.swing.JTextField codigoBarrasTextField = new javax.swing.JTextField();
@@ -71,9 +64,6 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-
-        VendedorLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        VendedorLabel.setText("Vendedor");
 
         ClienteLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         ClienteLabel.setText("Cliente");
@@ -172,8 +162,6 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
         CantidadLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         CantidadLabel.setText("Cantidad");
 
-        vendedorUsuarioTextField.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-
         stockTextField.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         botonRegistrarVentaTabla.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
@@ -201,11 +189,7 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
         panel_1Layout.setHorizontalGroup(
             panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(VendedorLabel)
-                    .addComponent(vendedorUsuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(24, 24, 24)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ClienteLabel)
                     .addComponent(nombreClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -254,15 +238,12 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(VendedorLabel)
                             .addComponent(stockLabel)
                             .addComponent(ClienteLabel))
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombreClienteTextField)
-                                    .addComponent(vendedorUsuarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(nombreClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +310,7 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
         } catch (Exception e) {
             return;
         }
-        //Object[] producto = nuevaVentaController.consultarDatosProducto(codigoBarras);
+        //Object[] producto = controllerPanelNuevaVenta.consultarDatosProducto(codigoBarras);
 //        Object[] object = new Object[model.getColumnCount()];
 //        
 //        object[0] = producto[0];
@@ -376,7 +357,12 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
     }//GEN-LAST:event_codigoBarrasTextFieldActionPerformed
 
     private void codigoBarrasTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldKeyTyped
-        // TODO add your handling code here:
+        // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
+        char c = evt.getKeyChar();
+        
+        if (c<'0' || c> '9') {
+            evt.consume();            
+        }
     }//GEN-LAST:event_codigoBarrasTextFieldKeyTyped
 
 
@@ -386,7 +372,6 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
     private javax.swing.JTabbedPane TablaPanel;
     private javax.swing.JLabel TotalAPagarLabel;
     private javax.swing.JLabel TotalPagarTextField;
-    private javax.swing.JLabel VendedorLabel;
     private javax.swing.JButton botonFinalizarVenta;
     private javax.swing.JButton botonImprimir;
     private javax.swing.JButton botonRegistrarEImprimir;
@@ -399,6 +384,5 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
     private javax.swing.JLabel stockTextField;
     private javax.swing.JTable tablaNuevaVenta;
     private javax.swing.JScrollPane tabla_nuevaVenta;
-    private javax.swing.JLabel vendedorUsuarioTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import minerva.model.ExceptionHandler;
-import minerva.model.ProductoDTO;
+import minerva.model.dto.ProductoDTO;
 
 /**
  *

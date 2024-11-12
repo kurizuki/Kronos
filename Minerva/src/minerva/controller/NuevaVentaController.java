@@ -1,6 +1,6 @@
 package minerva.controller;
 
-import minerva.model.VendedorDTO;
+import minerva.model.dto.VendedorDTO;
 
 /**
  *

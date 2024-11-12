@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import minerva.model.ExceptionHandler;
-import minerva.model.VendedorDTO;
+import minerva.model.dto.VendedorDTO;
 
 /**
  *
@@ -38,11 +38,11 @@ public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {        
-                        vendedorDB = new VendedorDTO();
-                        vendedorDB.setVendedorID(resultSet.getLong("VendedorID"));
-                        vendedorDB.setNombres(resultSet.getString("Nombres"));
-                        vendedorDB.setUsuario(resultSet.getString("Usuario"));
-                        vendedorDB.setContrasena(resultSet.getString("Contrasena"));
+                        vendedorDB = new VendedorDTO(
+                        resultSet.getLong("VendedorID"),
+                        resultSet.getString("Nombres"),
+                        resultSet.getString("Usuario"),
+                        resultSet.getString("Contrasena"));
                     } else {
                         throw new Exception("EL USUARIO NO FUE ENCONTRADO EN LA DB");
                     }

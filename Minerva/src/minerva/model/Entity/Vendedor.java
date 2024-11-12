@@ -1,5 +1,6 @@
-package minerva.model;
+package minerva.model.Entity;
 
+import minerva.model.dto.VendedorDTO;
 import minerva.dao.IVendedorDAO;
 import minerva.dao.TablaVendedor;
 

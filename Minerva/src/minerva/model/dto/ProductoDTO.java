@@ -1,4 +1,4 @@
-package minerva.model;
+package minerva.model.dto;
 
 /**
  *
@@ -12,8 +12,8 @@ public class ProductoDTO {
     private String descripcion;
     private long stock;
     private long codigoBarras;
-    // AGREGAR MOVIMIENTOS PRODUCTO
     private String ubicacionAlmacen;
+    // -----------------------
 
 
     public ProductoDTO() {

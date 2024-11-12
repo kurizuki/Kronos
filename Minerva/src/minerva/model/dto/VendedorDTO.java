@@ -1,23 +1,26 @@
-package minerva.model;
+package minerva.model.dto;
 
 /**
  *
  * @author L
  */
 public class VendedorDTO {
+    // VARIALBLES DE LA DB
     private long vendedorID;
     private String nombres;
     private String usuario;
     private String contrasena;
+    // -----------------------
         
     public VendedorDTO() {
     }
 
-    public VendedorDTO(long vendedorID, String nombres, String usuario) {
+    public VendedorDTO(long vendedorID, String nombres, String usuario, String contrasena) {
         this.vendedorID = vendedorID;
         this.nombres = nombres;
         this.usuario = usuario;
-    }
+        this.contrasena = contrasena;
+    }   
     
     public long getVendedorID() {
         return vendedorID;

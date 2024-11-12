@@ -1,6 +1,6 @@
 package minerva.dao;
 
-import minerva.model.VendedorDTO;
+import minerva.model.dto.VendedorDTO;
 
 /**
  *

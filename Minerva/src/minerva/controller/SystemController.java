@@ -2,8 +2,8 @@ package minerva.controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import minerva.model.Vendedor;
-import minerva.model.VendedorDTO;
+import minerva.model.Entity.Vendedor;
+import minerva.model.dto.VendedorDTO;
 
 /**
  *

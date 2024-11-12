@@ -1,7 +1,7 @@
 package minerva.controller;
 
-import minerva.model.Vendedor;
-import minerva.model.Autenticable;
+import minerva.model.Entity.Vendedor;
+import minerva.model.Entity.Autenticable;
 
 /**
  *

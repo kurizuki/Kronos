@@ -6,8 +6,8 @@ package minerva.view;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import minerva.model.Producto;
-import minerva.model.ProductoDTO;
+import minerva.model.Entity.Producto;
+import minerva.model.dto.ProductoDTO;
 
 /**
  *

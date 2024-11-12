@@ -1,5 +1,6 @@
-package minerva.model;
+package minerva.model.Entity;
 
+import minerva.model.dto.ProductoDTO;
 import java.util.ArrayList;
 import minerva.dao.IProductoDAO;
 import minerva.dao.TablaProducto;

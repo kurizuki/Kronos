@@ -1,4 +1,4 @@
-package minerva.model.Entity;
+package minerva.model.entity;
 
 /**
  *

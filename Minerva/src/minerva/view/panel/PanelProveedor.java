@@ -1,17 +1,19 @@
 package minerva.view.panel;
 
-import minerva.controller.ProveedorController;
+import minerva.controller.ControllerPanelProveedor;
+import minerva.controller.ControllerSystem;
 
 /**
  *
  * @author L
  */
-public class ProveedorPanel extends javax.swing.JPanel {
+public class PanelProveedor extends javax.swing.JPanel {
 
     // CONTROLLER
-    ProveedorController proveedorController= new ProveedorController();
+    ControllerPanelProveedor provedorPanelController = null;
     
-    public ProveedorPanel() {
+    public PanelProveedor(ControllerSystem systemController) {
+        provedorPanelController = new ControllerPanelProveedor(systemController);
         initComponents();
     }
 

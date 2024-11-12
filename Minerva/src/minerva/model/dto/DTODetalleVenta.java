@@ -4,16 +4,16 @@ package minerva.model.dto;
  *
  * @author L
  */
-public class DetalleVentaDTO {
+public class DTODetalleVenta {
     private long ventaID;
     private long productoID;
     private long cantidad;
     private double montoTotal;
 
-    public DetalleVentaDTO() {
+    public DTODetalleVenta() {
     }
 
-    public DetalleVentaDTO(long ventaID, long productoID, long cantidad, double montoTotal) {
+    public DTODetalleVenta(long ventaID, long productoID, long cantidad, double montoTotal) {
         this.ventaID = ventaID;
         this.productoID = productoID;
         this.cantidad = cantidad;

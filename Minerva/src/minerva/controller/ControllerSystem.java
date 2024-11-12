@@ -1,21 +1,19 @@
 package minerva.controller;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import minerva.model.Entity.Vendedor;
-import minerva.model.dto.VendedorDTO;
+import minerva.model.entity.Vendedor;
+import minerva.model.dto.DTOVendedor;
 
 /**
  *
  * @author L
  */
-public class SystemController {
-    private VendedorDTO vendedorDTO = null;
+public class ControllerSystem {
+    private DTOVendedor vendedorDTO = null;
 
-    public SystemController() {
+    public ControllerSystem() {
     }
 
-    public SystemController(String usuario) {
+    public ControllerSystem(String usuario) {
         asignarDTO(usuario);
     }
     
@@ -25,11 +23,11 @@ public class SystemController {
             vendedorDTO = Vendedor.getVendedorDB(usuario);
         } catch (Exception ex) {
             System.out.println("CAYO LA UTLIMA BARRERA DE DEFENSA CONTRA LOS ERRRORES XD");
-            vendedorDTO = new VendedorDTO(404, "404", "404");
+            vendedorDTO = new DTOVendedor(404, "404", "404", null);
         }
     }
 
-    public VendedorDTO getVendedorDTO() {
+    public DTOVendedor getVendedorDTO() {
         return vendedorDTO;
     }
     

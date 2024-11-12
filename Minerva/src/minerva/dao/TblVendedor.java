@@ -7,26 +7,26 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import minerva.model.ExceptionHandler;
-import minerva.model.dto.VendedorDTO;
+import minerva.model.dto.DTOVendedor;
 
 /**
  *
  * @author L
  */
-public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
-    public TablaVendedor() {
+public class TblVendedor implements ICrud<DTOVendedor, String>, IDAOVendedor {
+    public TblVendedor() {
     }
 
     @Override
-    public void create(VendedorDTO entidad) {
+    public void create(DTOVendedor entidad) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public VendedorDTO read(String usuario) throws Exception {
+    public DTOVendedor read(String usuario) throws Exception {
         final String QUERY = "SELECT * FROM vendedor WHERE Usuario=?";
     
-        VendedorDTO vendedorDB = null;
+        DTOVendedor vendedorDB = null;
 
         try (IDataBaseConnector mySQLConnector = new MySQLConnector()) {
             
@@ -38,7 +38,7 @@ public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {        
-                        vendedorDB = new VendedorDTO(
+                        vendedorDB = new DTOVendedor(
                         resultSet.getLong("VendedorID"),
                         resultSet.getString("Nombres"),
                         resultSet.getString("Usuario"),
@@ -56,7 +56,7 @@ public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
     }
 
     @Override
-    public void update(VendedorDTO entidad) {
+    public void update(DTOVendedor entidad) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -66,7 +66,7 @@ public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
     }
 
     @Override
-    public LinkedList<VendedorDTO> listAll() {
+    public LinkedList<DTOVendedor> listAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -78,8 +78,8 @@ public class TablaVendedor implements ICrud<VendedorDTO, String>, IVendedorDAO {
     }
 
     @Override
-    public VendedorDTO getVendedor(String usuario) throws Exception {
-        VendedorDTO vendedor = read(usuario);
+    public DTOVendedor getVendedor(String usuario) throws Exception {
+        DTOVendedor vendedor = read(usuario);
         vendedor.setContrasena(null);
         return vendedor;    
     }

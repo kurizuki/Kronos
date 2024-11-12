@@ -1,14 +1,14 @@
 package minerva.view;
 
-import minerva.view.panel.VentasPanel;
-import minerva.view.panel.ClientesPanel;
-import minerva.view.panel.ProveedorPanel;
-import minerva.view.panel.NuevaVentaPanel;
-import minerva.view.panel.ProductosPanel;
+import minerva.view.panel.PanelVenta;
+import minerva.view.panel.PanelCliente;
+import minerva.view.panel.PanelProveedor;
+import minerva.view.panel.PanelNuevaVenta;
+import minerva.view.panel.PanelProducto;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
-import minerva.controller.SystemController;
+import minerva.controller.ControllerSystem;
 
 
 public class SystemView extends javax.swing.JFrame {
@@ -17,14 +17,14 @@ public class SystemView extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     // CONTROLLER
-    SystemController systemController = null;
+    ControllerSystem systemController = null;
     
     // PANELES
-    NuevaVentaPanel nuevaVentaPanel = null;
-    ClientesPanel   clientesPanel  = null;
-    ProveedorPanel  proveedorPanel = null;
-    ProductosPanel  productosPanel = null;
-    VentasPanel     ventasPanel    = null;
+    PanelNuevaVenta nuevaVentaPanel = null;
+    PanelCliente   clientesPanel  = null;
+    PanelProveedor  proveedorPanel = null;
+    PanelProducto  productosPanel = null;
+    PanelVenta     ventasPanel    = null;
 
     public SystemView() {       
     }
@@ -35,20 +35,20 @@ public class SystemView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
        
         // CONTROLLER INICIALIZAR
-        systemController = new SystemController(usuario);
+        systemController = new ControllerSystem(usuario);
         
         // PANEL INICIALIZAR
-        nuevaVentaPanel= new NuevaVentaPanel(systemController);
-        clientesPanel  = new ClientesPanel(systemController);
-//        proveedorPanel = new ProveedorPanel(systemController);
-//        productosPanel = new ProductosPanel(systemController);
-//        ventasPanel    = new VentasPanel(systemController);
+        nuevaVentaPanel= new PanelNuevaVenta(systemController);
+        clientesPanel  = new PanelCliente(systemController);
+        proveedorPanel = new PanelProveedor(systemController);
+        productosPanel = new PanelProducto(systemController);
+        ventasPanel    = new PanelVenta(systemController);
         
         // ESTE ES EL PANEL INICIAL QUE SE MOSTRARÁ
         dibujarPanel(nuevaVentaPanel);
     }
   
-    public SystemController getController() {
+    public ControllerSystem getController() {
         return systemController;
     }
     

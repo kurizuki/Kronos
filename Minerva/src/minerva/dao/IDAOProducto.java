@@ -6,6 +6,6 @@ import java.util.ArrayList;
  *
  * @author L
  */
-public interface IProductoDAO<T>{
+public interface IDAOProducto<T>{
     ArrayList<T> listarProducto() throws Exception;
 }

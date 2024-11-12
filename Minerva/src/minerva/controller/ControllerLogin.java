@@ -1,16 +1,16 @@
 package minerva.controller;
 
-import minerva.model.Entity.Vendedor;
-import minerva.model.Entity.Autenticable;
+import minerva.model.entity.Vendedor;
+import minerva.model.entity.Autenticable;
 
 /**
  *
  * @author L
  */
-public class LoginController {
+public class ControllerLogin {
     private static Autenticable vendedor = new Vendedor();
     
-    public LoginController() {        
+    public ControllerLogin() {        
     }
     
     public static boolean validarCredenciales(String usuario, String contrasena) {

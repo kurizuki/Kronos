@@ -4,7 +4,7 @@ package minerva.model.dto;
  *
  * @author L
  */
-public class ClienteDTO {
+public class DTOCliente {
     // VARIALBLES DE LA DB
     private long clienteID;
     private String nombres;
@@ -13,10 +13,10 @@ public class ClienteDTO {
     private String direccion;
     // -----------------------
 
-    public ClienteDTO() {
+    public DTOCliente() {
     }
 
-    public ClienteDTO(long clienteID, String nombres, long edad, String telefono, String direccion) {
+    public DTOCliente(long clienteID, String nombres, long edad, String telefono, String direccion) {
         this.clienteID = clienteID;
         this.nombres = nombres;
         this.edad = edad;

@@ -1,19 +1,19 @@
 package minerva.view.panel;
 
-import minerva.controller.ClientesController;
-import minerva.controller.SystemController;
+import minerva.controller.ControllerPanelCliente;
+import minerva.controller.ControllerSystem;
 
 /**
  *
  * @author L
  */
-public class ClientesPanel extends javax.swing.JPanel {
+public class PanelCliente extends javax.swing.JPanel {
     // CONTROLLER
-    ClientesController clientesController;
+    ControllerPanelCliente clientesController = null;
 
-    public ClientesPanel(SystemController systemController) {
+    public PanelCliente(ControllerSystem systemController) {
         initComponents();
-        clientesController = new ClientesController(systemController);
+        clientesController = new ControllerPanelCliente(systemController);
     }
     
 

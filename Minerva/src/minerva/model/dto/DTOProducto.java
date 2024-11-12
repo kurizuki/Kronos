@@ -4,7 +4,7 @@ package minerva.model.dto;
  *
  * @author L
  */
-public class ProductoDTO {
+public class DTOProducto {
     // VARIALBLES DE LA DB
     private long productoID;
     private String nombre;
@@ -16,10 +16,10 @@ public class ProductoDTO {
     // -----------------------
 
 
-    public ProductoDTO() {
+    public DTOProducto() {
     }
 
-    public ProductoDTO(long productoID, String nombre, double precio, String descripcion, long stock, long codigoBarras, String ubicacionAlmacen) {
+    public DTOProducto(long productoID, String nombre, double precio, String descripcion, long stock, long codigoBarras, String ubicacionAlmacen) {
         this.productoID = productoID;
         this.nombre = nombre;
         this.precio = precio;

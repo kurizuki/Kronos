@@ -4,6 +4,6 @@ package minerva.config;
  *
  * @author L
  */
-public class Configuracion {
+public class Config {
     
 }

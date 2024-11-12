@@ -8,26 +8,26 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import minerva.model.ExceptionHandler;
-import minerva.model.dto.ProductoDTO;
+import minerva.model.dto.DTOProducto;
 
 /**
  *
  * @author L
  */
-public class TablaProducto implements ICrud<ProductoDTO, Long>, IProductoDAO {
+public class TblProducto implements ICrud<DTOProducto, Long>, IDAOProducto {
 
     @Override
-    public void create(ProductoDTO entidad) {
+    public void create(DTOProducto entidad) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public ProductoDTO read(Long identificador) throws Exception {
+    public DTOProducto read(Long identificador) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(ProductoDTO entidad) {
+    public void update(DTOProducto entidad) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -37,32 +37,30 @@ public class TablaProducto implements ICrud<ProductoDTO, Long>, IProductoDAO {
     }
 
     @Override
-    public LinkedList<ProductoDTO> listAll() throws Exception {
+    public LinkedList<DTOProducto> listAll() throws Exception {
         final String QUERY = "SELECT * FROM producto";
-        LinkedList<ProductoDTO> listProductoDTO = new LinkedList<>();
+        LinkedList<DTOProducto> listProductoDTO = new LinkedList<>();
 
         try (IDataBaseConnector mySQLConnector = new MySQLConnector()) {
             
-            Connection connection = mySQLConnector.getConnection();
-            
-            try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-                
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    
-                    while (resultSet.next()) { 
-                        System.out.println("ENTRAMOS AL WHILE");
-                        System.out.println(resultSet.getString("Nombre"));
-                        listProductoDTO.add(new ProductoDTO(
-                                resultSet.getLong("ProductoID"), 
-                                resultSet.getString("Nombre"), 
-                                resultSet.getDouble("Precio"), 
-                                resultSet.getString("Descripcion"), 
-                                resultSet.getLong("Stock"), 
-                                resultSet.getLong("CodigoBarras"),
-                                resultSet.getString("UbicacionAlmacen")));                        
-                    } 
-                }
-            }
+        Connection connection = mySQLConnector.getConnection();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) { 
+                listProductoDTO.add(new DTOProducto(         
+                        resultSet.getLong("ProductoID"), 
+                        resultSet.getString("Nombre"), 
+                        resultSet.getDouble("Precio"), 
+                        resultSet.getString("Descripcion"), 
+                        resultSet.getLong("Stock"), 
+                        resultSet.getLong("CodigoBarras"),
+                        resultSet.getString("UbicacionAlmacen")));                        
+            } 
+        }
+        }
         } catch (SQLException e) {
             ExceptionHandler exceptionHandler= new ExceptionHandler("ERROR EN LA EJECUCIÓN DE LA QUERY", e.toString());
         }
@@ -77,8 +75,6 @@ public class TablaProducto implements ICrud<ProductoDTO, Long>, IProductoDAO {
     @Override
     public ArrayList listarProducto() throws Exception {        
         return new ArrayList<>(listAll()); // Convierte LinkedList a ArrayList directamente
-    }
-
-    
+    } 
 
 }

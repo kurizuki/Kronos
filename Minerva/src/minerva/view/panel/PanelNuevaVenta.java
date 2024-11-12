@@ -1,24 +1,24 @@
 package minerva.view.panel;
 
 import javax.swing.table.DefaultTableModel;
-import minerva.controller.NuevaVentaController;
-import minerva.controller.SystemController;
+import minerva.controller.ControllerNuevaVentaPanel;
+import minerva.controller.ControllerSystem;
 
 /**
  *
  * @author L
  */
-public class NuevaVentaPanel extends javax.swing.JPanel {
+public class PanelNuevaVenta extends javax.swing.JPanel {
     // CONTROLLER
-    NuevaVentaController nuevaVentaController = null;
+    ControllerNuevaVentaPanel nuevaVentaController = null;
     
     // INSTANCIAS PARA INTERACTUAR CON LA TABLA
     DefaultTableModel model;
     
-    public NuevaVentaPanel(SystemController systemController) {
+    public PanelNuevaVenta(ControllerSystem systemController) {
         initComponents();
         model = (DefaultTableModel) tablaNuevaVenta.getModel();
-        nuevaVentaController= new NuevaVentaController(systemController);
+        nuevaVentaController= new ControllerNuevaVentaPanel(systemController);
         asignarDatosVendedorPanel();
         asignarDatosClientePanel();
     }
@@ -55,12 +55,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         botonImprimir = new javax.swing.JButton();
         botonFinalizarVenta = new javax.swing.JButton();
         codigoLabel = new javax.swing.JLabel();
-        codigoTextField = new javax.swing.JTextField();
-        cantidadTextField = new javax.swing.JTextField();
+        javax.swing.JTextField cantidadTextField = new javax.swing.JTextField();
         CantidadLabel = new javax.swing.JLabel();
         vendedorUsuarioTextField = new javax.swing.JLabel();
         stockTextField = new javax.swing.JLabel();
         botonRegistrarVentaTabla = new javax.swing.JButton();
+        javax.swing.JTextField codigoBarrasTextField = new javax.swing.JTextField();
 
         TablaPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -157,18 +157,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         codigoLabel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         codigoLabel.setText("Codigo");
 
-        codigoTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        codigoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoTextFieldActionPerformed(evt);
-            }
-        });
-        codigoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                codigoTextFieldKeyTyped(evt);
-            }
-        });
-
         cantidadTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         cantidadTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +184,18 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             }
         });
 
+        codigoBarrasTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        codigoBarrasTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoBarrasTextFieldActionPerformed(evt);
+            }
+        });
+        codigoBarrasTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoBarrasTextFieldKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
         panel_1Layout.setHorizontalGroup(
@@ -217,11 +217,15 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                 .addComponent(eliminar)
                 .addGap(19, 19, 19))
             .addGroup(panel_1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(codigoLabel)
-                    .addComponent(codigoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panel_1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(codigoLabel)
+                        .addGap(112, 112, 112))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(codigoBarrasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CantidadLabel)
                     .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,11 +284,12 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
                         .addGroup(panel_1Layout.createSequentialGroup()
                             .addComponent(CantidadLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cantidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(codigoBarrasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(panel_1Layout.createSequentialGroup()
                             .addComponent(codigoLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(codigoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(28, 28, 28)))
                     .addComponent(botonRegistrarVentaTabla))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
@@ -318,9 +323,9 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_TablaPanelAncestorMoved
 
     private void botonRegistrarVentaTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVentaTablaActionPerformed
-        int codigoBarras;
+        long codigoBarras;
         try {
-            codigoBarras = Integer.parseInt(codigoTextField.getText());
+            //codigoBarras = Integer.parseInt(codigoBarrasTextField.getText());
         } catch (Exception e) {
             return;
         }
@@ -341,10 +346,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadTextFieldActionPerformed
 
-    private void codigoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codigoTextFieldActionPerformed
-
     private void botonFinalizarVentaregistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFinalizarVentaregistrarProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonFinalizarVentaregistrarProductoActionPerformed
@@ -361,15 +362,6 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarActionPerformed
 
-    private void codigoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoTextFieldKeyTyped
-        // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
-        char c = evt.getKeyChar();
-        
-        if (c<'0' || c> '9') {
-            evt.consume();            
-        }
-    }//GEN-LAST:event_codigoTextFieldKeyTyped
-
     private void cantidadTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadTextFieldKeyTyped
         // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
         char c = evt.getKeyChar();
@@ -378,6 +370,14 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
             evt.consume();            
         }
     }//GEN-LAST:event_cantidadTextFieldKeyTyped
+
+    private void codigoBarrasTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoBarrasTextFieldActionPerformed
+
+    private void codigoBarrasTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoBarrasTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -391,9 +391,7 @@ public class NuevaVentaPanel extends javax.swing.JPanel {
     private javax.swing.JButton botonImprimir;
     private javax.swing.JButton botonRegistrarEImprimir;
     private javax.swing.JButton botonRegistrarVentaTabla;
-    private javax.swing.JTextField cantidadTextField;
     private javax.swing.JLabel codigoLabel;
-    private javax.swing.JTextField codigoTextField;
     private javax.swing.JButton eliminar;
     private javax.swing.JTextField nombreClienteTextField;
     private javax.swing.JPanel panel_1;

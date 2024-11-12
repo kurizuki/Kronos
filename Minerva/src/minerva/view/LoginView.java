@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
-import minerva.controller.LoginController;
+import minerva.controller.ControllerLogin;
 
 public class LoginView extends javax.swing.JFrame {
 
@@ -29,7 +29,7 @@ public class LoginView extends javax.swing.JFrame {
         }
         
         // USAMOS EL LOGINCONTROLER
-        if (LoginController.validarCredenciales(usuario, contrasena)) {
+        if (ControllerLogin.validarCredenciales(usuario, contrasena)) {
             SystemView puntoVentaView = new SystemView(usuario);
             puntoVentaView.setVisible(true);            
             dispose();           

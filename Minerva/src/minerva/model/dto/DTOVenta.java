@@ -6,17 +6,17 @@ import java.util.Date;
  *
  * @author L
  */
-public class VentaDTO {
+public class DTOVenta {
     private long ventaID;
     private long vendedorID;
     private long clienteID;
     private Date fechaVenta;
     private double montoTotal;
 
-    public VentaDTO() {
+    public DTOVenta() {
     }
 
-    public VentaDTO(long ventaID, long vendedorID, long clienteID, Date fechaVenta, double montoTotal) {
+    public DTOVenta(long ventaID, long vendedorID, long clienteID, Date fechaVenta, double montoTotal) {
         this.ventaID = ventaID;
         this.vendedorID = vendedorID;
         this.clienteID = clienteID;

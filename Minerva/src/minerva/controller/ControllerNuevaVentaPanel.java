@@ -1,21 +1,21 @@
 package minerva.controller;
 
-import minerva.model.dto.VendedorDTO;
+import minerva.model.dto.DTOVendedor;
 
 /**
  *
  * @author L
  */
-public class NuevaVentaController {
-    private SystemController systemController = null;
+public class ControllerNuevaVentaPanel {
+    private ControllerSystem systemController = null;
     
-    private VendedorDTO vendedorDTO = null;
+    private DTOVendedor vendedorDTO = null;
     private String nombreCliente = "Anonimo";
     
-    public NuevaVentaController() {
+    public ControllerNuevaVentaPanel() {
     }
 
-    public NuevaVentaController(SystemController systemController) {
+    public ControllerNuevaVentaPanel(ControllerSystem systemController) {
         this.systemController = systemController;
         asignarDTO();
     }
@@ -31,14 +31,6 @@ public class NuevaVentaController {
     
     public String getNombreCliente() {
         return nombreCliente;
-    }
-    
-//    public Object[] consultarDatosProducto(int codigoBarras) {
-//        return Producto.consultarDatosProducto(codigoBarras);
-//    }
-   
-    private void asignarDatosCliente() {
-        
     }
 
 }

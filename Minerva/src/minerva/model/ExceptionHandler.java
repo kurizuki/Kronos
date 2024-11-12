@@ -32,7 +32,7 @@ public class ExceptionHandler {
         this.detelleError = cause;
         
         manejarException();
-    }    
+    }
     
     private void manejarException() {
         establecerTiempoActual();

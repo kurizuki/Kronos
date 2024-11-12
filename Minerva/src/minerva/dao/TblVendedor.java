@@ -30,26 +30,26 @@ public class TblVendedor implements ICrud<DTOVendedor, String>, IDAOVendedor {
 
         try (IDataBaseConnector mySQLConnector = new MySQLConnector()) {
             
-            Connection connection = mySQLConnector.getConnection();
-            
-            try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
-                
-                preparedStatement.setString(1, usuario);
+        Connection connection = mySQLConnector.getConnection();
 
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {        
-                        vendedorDB = new DTOVendedor(
-                        resultSet.getLong("VendedorID"),
-                        resultSet.getString("Nombres"),
-                        resultSet.getString("Usuario"),
-                        resultSet.getString("Contrasena"));
-                    } else {
-                        throw new Exception("EL USUARIO NO FUE ENCONTRADO EN LA DB");
-                    }
-                }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+
+        preparedStatement.setString(1, usuario);
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {        
+                vendedorDB = new DTOVendedor(
+                resultSet.getLong("VendedorID"),
+                resultSet.getString("Nombres"),
+                resultSet.getString("Usuario"),
+                resultSet.getString("Contrasena"));
+            } else {
+                throw new Exception("EL USUARIO NO FUE ENCONTRADO EN LA DB");
             }
+        }
+        }
         } catch (SQLException e) {
-            ExceptionHandler exceptionHandler= new ExceptionHandler("ERROR EN LA EJECUCIÓN DE LA QUERY", e.toString());
+            ExceptionHandler exceptionHandler = new ExceptionHandler("ERROR EN LA EJECUCIÓN DE LA QUERY", e.toString());
         }
         
         return vendedorDB;

@@ -13,17 +13,42 @@ import minerva.model.dto.DTOVendedor;
  *
  * @author L
  */
-public class TblVendedor implements ICrud<DTOVendedor, String>, IDAOVendedor {
+public class TblVendedor implements IDAOVendedor {
+    
     public TblVendedor() {
     }
-
+    
     @Override
-    public void create(DTOVendedor entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getContrasena(String usuario) throws Exception {
+        final String QUERY = "SELECT * FROM vendedor WHERE Usuario=?";
+    
+        String contrasenaDB = null;
+
+        try (IDataBaseConnector mySQLConnector = new MySQLConnector()) {
+            
+        Connection connection = mySQLConnector.getConnection();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
+
+        preparedStatement.setString(1, usuario);
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {        
+                contrasenaDB = resultSet.getString("Contrasena");
+            } else {
+                throw new Exception("EL USUARIO NO FUE ENCONTRADO EN LA DB");
+            }
+        }
+        }
+        } catch (SQLException e) {
+            ExceptionHandler exceptionHandler = new ExceptionHandler("ERROR EN LA EJECUCIÓN DE LA QUERY", e.toString());
+        }        
+        
+        return contrasenaDB;    
     }
 
     @Override
-    public DTOVendedor read(String usuario) throws Exception {
+    public DTOVendedor getVendedor(String usuario) throws Exception {
         final String QUERY = "SELECT * FROM vendedor WHERE Usuario=?";
     
         DTOVendedor vendedorDB = null;
@@ -52,36 +77,11 @@ public class TblVendedor implements ICrud<DTOVendedor, String>, IDAOVendedor {
             ExceptionHandler exceptionHandler = new ExceptionHandler("ERROR EN LA EJECUCIÓN DE LA QUERY", e.toString());
         }
         
-        return vendedorDB;
-    }
-
-    @Override
-    public void update(DTOVendedor entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public LinkedList<DTOVendedor> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
-
-    @Override
-    public String getContrasena(String usuario) throws Exception {
-        return read(usuario).getContrasena();
-    }
-
-    @Override
-    public DTOVendedor getVendedor(String usuario) throws Exception {
-        DTOVendedor vendedor = read(usuario);
-        vendedor.setContrasena(null);
-        return vendedor;    
+        // EVITAMOS QUE LA CONTRA SEA VISIBLE 
+        // LA MEDIDA DE CIBERSEGURIDAD MAS VAGA QUE HE VISTO XDDD
+        vendedorDB.setContrasena(null);
+        
+        return vendedorDB;    
     }
 
 }

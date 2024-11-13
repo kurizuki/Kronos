@@ -20,12 +20,13 @@ public class LoginView extends javax.swing.JFrame {
     }
     
     private void validarCredenciales(){
-        //VALIDA QUE LOS DATOS INGRESADOS EN EL LOGIN SEAN IGUALES A LOS USUARIOS DE LA BASE DE DATOS
-        String usuario = userTxT.getText();
-        String contrasena = String.valueOf(passwordTxT.getPassword());
-        
-        if ("".equals(usuario) || "".equals(contrasena)){
-            return;                
+        String usuario = usuarioTextField.getText(); // Campo de usuario
+        String contrasena = String.valueOf(contrasenaTextField.getPassword()); // Campo de contraseña
+
+        // Verificamos si alguno de los campos está vacío
+        if (usuario.isEmpty() || contrasena.isEmpty()) {
+            // Si algún campo está vacío, salimos del método sin continuar con la validación
+            return;
         }
         
         // USAMOS EL LOGINCONTROLER
@@ -39,7 +40,7 @@ public class LoginView extends javax.swing.JFrame {
     }
     
     private void asignarListenerEnter() {
-        passwordTxT.addActionListener(new ActionListener() {
+        contrasenaTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 botonIniciarSesionActionPerformed(evt);
@@ -60,14 +61,13 @@ public class LoginView extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         botonSalir = new javax.swing.JPanel();
         botonSalirLabel = new javax.swing.JLabel();
-        faviconEmpresa = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
         userLabel = new javax.swing.JLabel();
         separador_1 = new javax.swing.JSeparator();
-        userTxT = new javax.swing.JTextField();
+        usuarioTextField = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
         separador_2 = new javax.swing.JSeparator();
-        passwordTxT = new javax.swing.JPasswordField();
+        contrasenaTextField = new javax.swing.JPasswordField();
         botonIniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -161,10 +161,6 @@ public class LoginView extends javax.swing.JFrame {
 
         background.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 50));
 
-        faviconEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        faviconEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FaviconFerreteria.png"))); // NOI18N
-        background.add(faviconEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 40, 40));
-
         titulo.setBackground(new java.awt.Color(255, 255, 255));
         titulo.setFont(new java.awt.Font("Roboto Medium", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -178,15 +174,15 @@ public class LoginView extends javax.swing.JFrame {
         background.add(userLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
         background.add(separador_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 257, 420, -1));
 
-        userTxT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        userTxT.setForeground(new java.awt.Color(153, 153, 153));
-        userTxT.setBorder(null);
-        userTxT.addMouseListener(new java.awt.event.MouseAdapter() {
+        usuarioTextField.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        usuarioTextField.setForeground(new java.awt.Color(153, 153, 153));
+        usuarioTextField.setBorder(null);
+        usuarioTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                userTxTMousePressed(evt);
+                usuarioTextFieldMousePressed(evt);
             }
         });
-        background.add(userTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 420, 30));
+        background.add(usuarioTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 420, 30));
 
         passwordLabel.setBackground(new java.awt.Color(255, 255, 255));
         passwordLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
@@ -195,14 +191,19 @@ public class LoginView extends javax.swing.JFrame {
         background.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
         background.add(separador_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 420, 10));
 
-        passwordTxT.setForeground(new java.awt.Color(204, 204, 204));
-        passwordTxT.setBorder(null);
-        passwordTxT.addMouseListener(new java.awt.event.MouseAdapter() {
+        contrasenaTextField.setForeground(new java.awt.Color(204, 204, 204));
+        contrasenaTextField.setBorder(null);
+        contrasenaTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                passwordTxTMousePressed(evt);
+                contrasenaTextFieldMousePressed(evt);
             }
         });
-        background.add(passwordTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 420, 30));
+        contrasenaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contrasenaTextFieldActionPerformed(evt);
+            }
+        });
+        background.add(contrasenaTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 420, 30));
 
         botonIniciarSesion.setBackground(new java.awt.Color(255, 102, 0));
         botonIniciarSesion.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -259,20 +260,24 @@ public class LoginView extends javax.swing.JFrame {
         botonSalirLabel.setForeground(Color.black);
     }//GEN-LAST:event_botonSalirMouseExited
 
-    private void userTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxTMousePressed
+    private void usuarioTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usuarioTextFieldMousePressed
         //PLACEHOLDER DEL USUARIO
         
-    }//GEN-LAST:event_userTxTMousePressed
+    }//GEN-LAST:event_usuarioTextFieldMousePressed
 
-    private void passwordTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTxTMousePressed
+    private void contrasenaTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contrasenaTextFieldMousePressed
         //PLACEHOLDER DE LA CONTRASEÑA
         
-    }//GEN-LAST:event_passwordTxTMousePressed
+    }//GEN-LAST:event_contrasenaTextFieldMousePressed
 
     private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
         //LLAMA AL METODO VALIDAR USUARIO AL PRESIONAR EL BOTON "ENTRAR"
         validarCredenciales();
     }//GEN-LAST:event_botonIniciarSesionActionPerformed
+
+    private void contrasenaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasenaTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contrasenaTextFieldActionPerformed
 
     
     public static void main(String args[]) {
@@ -310,18 +315,17 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JButton botonIniciarSesion;
     private javax.swing.JPanel botonSalir;
     private javax.swing.JLabel botonSalirLabel;
-    private javax.swing.JLabel faviconEmpresa;
+    private javax.swing.JPasswordField contrasenaTextField;
     private javax.swing.JPanel header;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel nombreEmpresa_1;
     private javax.swing.JLabel nombreEmpresa_2;
     private javax.swing.JLabel nombreEmpresa_3;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JPasswordField passwordTxT;
     private javax.swing.JSeparator separador_1;
     private javax.swing.JSeparator separador_2;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel userLabel;
-    private javax.swing.JTextField userTxT;
+    private javax.swing.JTextField usuarioTextField;
     // End of variables declaration//GEN-END:variables
 }

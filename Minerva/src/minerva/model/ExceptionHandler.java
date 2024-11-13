@@ -21,7 +21,7 @@ public class ExceptionHandler {
 
     public ExceptionHandler() {
     }
-    
+
     /**
      * 
      * @param message Nombre con el cual se quiera identificar al error
@@ -96,5 +96,5 @@ public class ExceptionHandler {
     private void mostrarMensaje(String mensajeError) {   
         JOptionPane.showMessageDialog(null, mensajeError, "ERROR", 0);
     }
-          
+    
 }

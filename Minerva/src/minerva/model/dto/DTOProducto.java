@@ -12,7 +12,7 @@ public class DTOProducto {
     private String descripcion;
     private long stock;
     private long codigoBarras;
-    private String ubicacionAlmacen;
+    private String ubicacionAlmacen = "";
     // -----------------------
 
 

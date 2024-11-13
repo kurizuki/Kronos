@@ -15,7 +15,7 @@ public class ControllerLogin {
     
     public static boolean validarCredenciales(String usuario, String contrasena) {
         try {
-            if (vendedor.getContrasenaDB(usuario).equals(contrasena)) {
+            if (vendedor.readContrasenaDB(usuario).equals(contrasena)) {
                 return true;
             }
         } catch (Exception e) {

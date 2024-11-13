@@ -12,10 +12,13 @@ import minerva.model.ExceptionHandler;
  */
 public class Producto {
     private static IDAOProducto iDAOProducto = new TblProducto();
+
+    public Producto() {
+    }   
     
-    public static void registrarProductoDB(DTOProducto dtoProducto) throws Exception {
+    public static void createProductoDB(DTOProducto dtoProducto) throws Exception {
         try {
-            consultarProductoDB(dtoProducto.getCodigoBarras());
+            readProductoDB(dtoProducto.getCodigoBarras());
         } catch (Exception e) {
             ExceptionHandler exceptionHandler = new ExceptionHandler("YA EXISTE EL PRODUCTO", e.toString());
             return;
@@ -23,15 +26,15 @@ public class Producto {
         iDAOProducto.create(dtoProducto);
     }
     
-    public static void consultarProductoDB(long codigoBarras) throws Exception {
-        iDAOProducto.read(codigoBarras);
+    public static DTOProducto readProductoDB(long codigoBarras) throws Exception {
+        return iDAOProducto.read(codigoBarras);
     }
     
-    public static void modificarProductoDB() throws Exception {
-        
+    public static void updateProductoDB(DTOProducto dTOProducto) throws Exception {
+        iDAOProducto.update(dTOProducto);                       
     }
     
-    public static ArrayList<DTOProducto> listarProductoDB() throws Exception {
+    public static ArrayList<DTOProducto> listAllProductoDB() throws Exception {
         return iDAOProducto.listAll();
     }
 }

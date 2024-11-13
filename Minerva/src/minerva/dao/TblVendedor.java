@@ -19,7 +19,7 @@ public class TblVendedor implements IDAOVendedor {
     }
     
     @Override
-    public String getContrasena(String usuario) throws Exception {
+    public String readContrasena(String usuario) throws Exception {
         final String QUERY = "SELECT * FROM vendedor WHERE Usuario=?";
     
         String contrasenaDB = null;
@@ -48,7 +48,7 @@ public class TblVendedor implements IDAOVendedor {
     }
 
     @Override
-    public DTOVendedor getVendedor(String usuario) throws Exception {
+    public DTOVendedor read(String usuario) throws Exception {
         final String QUERY = "SELECT * FROM vendedor WHERE Usuario=?";
     
         DTOVendedor vendedorDB = null;

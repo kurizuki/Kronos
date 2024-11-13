@@ -12,8 +12,8 @@ public class PanelProducto extends javax.swing.JPanel {
     // CONTROLLER
     ControllerPanelProducto productoController = null;
     
-    public PanelProducto(ControllerSystem systemController) {
-        productoController = new ControllerPanelProducto(systemController);
+    public PanelProducto(ControllerSystem controllerSystem) {
+        productoController = new ControllerPanelProducto(controllerSystem);
         initComponents();
     }
     

@@ -10,14 +10,17 @@ import minerva.dao.IDAOVendedor;
  */
 public class Vendedor implements Autenticable{
     private static IDAOVendedor iVendedorDAO = new TblVendedor();
-    
-    public static DTOVendedor getVendedorDB(String usuario) throws Exception {
-        return iVendedorDAO.getVendedor(usuario);
+
+    public Vendedor() {
+    }
+
+    public static DTOVendedor readVendedorDB(String usuario) throws Exception {
+        return iVendedorDAO.read(usuario);
     }       
-        
+
     @Override
-    public String getContrasenaDB(String usuario) throws Exception {
-        return iVendedorDAO.getContrasena(usuario);
+    public String readContrasenaDB(String usuario) throws Exception {
+        return iVendedorDAO.readContrasena(usuario);
     }
 
 }

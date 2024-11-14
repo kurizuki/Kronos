@@ -24,9 +24,9 @@ public class PanelProducto extends javax.swing.JPanel {
     DefaultTableModel modeloTblRegistro = new DefaultTableModel();
     DefaultTableModel modeloTblConsulta = new DefaultTableModel();
     
-    public PanelProducto(ControllerSystem controllerSystem) {
+    public PanelProducto() {
         initComponents();
-        controllerPanelProducto = new ControllerPanelProducto(controllerSystem);
+        controllerPanelProducto = new ControllerPanelProducto();
         asignarListenerEnter();
     }
     

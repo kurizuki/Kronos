@@ -17,14 +17,14 @@ public class SystemView extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     // CONTROLLER
-    ControllerSystem systemController = null;
+    ControllerSystem controllerSystem = null;
     
     // PANELES
-    PanelNuevaVenta nuevaVentaPanel = null;
-    PanelCliente   clientesPanel  = null;
-    PanelProveedor  proveedorPanel = null;
-    PanelProducto  productosPanel = null;
-    PanelVenta     ventasPanel    = null;
+    PanelNuevaVenta panelNuevaVenta = null;
+    PanelCliente   panelCliente  = null;
+    PanelProveedor  panelProveedor = null;
+    PanelProducto  panelProducto = null;
+    PanelVenta     panelVenta    = null;
 
     public SystemView() {       
     }
@@ -35,21 +35,21 @@ public class SystemView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
        
         // CONTROLLER INICIALIZAR
-        systemController = new ControllerSystem(usuario);
+        controllerSystem = new ControllerSystem(usuario);
         
         // PANEL INICIALIZAR
-        nuevaVentaPanel= new PanelNuevaVenta(systemController);
-        clientesPanel  = new PanelCliente(systemController);
-        proveedorPanel = new PanelProveedor(systemController);
-        productosPanel = new PanelProducto(systemController);
-        ventasPanel    = new PanelVenta(systemController);
-        
+        panelNuevaVenta= new PanelNuevaVenta();
+        panelCliente  = new PanelCliente();
+        panelProveedor = new PanelProveedor();
+        panelProducto = new PanelProducto();
+        panelVenta    = new PanelVenta();
+       
         // ESTE ES EL PANEL INICIAL QUE SE MOSTRARÁ
-        dibujarPanel(nuevaVentaPanel);
+        dibujarPanel(panelNuevaVenta);
     }
   
     public ControllerSystem getController() {
-        return systemController;
+        return controllerSystem;
     }
     
     private void dibujarPanel(JPanel jPanel) {
@@ -73,8 +73,6 @@ public class SystemView extends javax.swing.JFrame {
         botonProductos = new javax.swing.JButton();
         botonVentas = new javax.swing.JButton();
         botonConfig = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        header = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
         botonExit = new javax.swing.JPanel();
         botonExitLabel = new javax.swing.JLabel();
@@ -149,11 +147,6 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minerva/assets/drako.jpeg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jLabel1.setToolTipText("");
-
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
         navBarLayout.setHorizontalGroup(
@@ -166,16 +159,13 @@ public class SystemView extends javax.swing.JFrame {
                     .addComponent(botonClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         navBarLayout.setVerticalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navBarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93)
+                .addGap(245, 245, 245)
                 .addComponent(botonNuevaVenta)
                 .addGap(30, 30, 30)
                 .addComponent(botonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,21 +181,6 @@ public class SystemView extends javax.swing.JFrame {
         );
 
         getContentPane().add(navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
-
-        header.setBackground(new java.awt.Color(255, 102, 0));
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
-        );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1020, 110));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -272,14 +247,14 @@ public class SystemView extends javax.swing.JFrame {
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 110, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 50, 60, 60));
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 110));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -315,23 +290,23 @@ public class SystemView extends javax.swing.JFrame {
     }//GEN-LAST:event_botonExitMouseClicked
 
     private void botonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClientesActionPerformed
-        dibujarPanel(clientesPanel);
+        dibujarPanel(panelCliente);
     }//GEN-LAST:event_botonClientesActionPerformed
 
     private void botonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentaActionPerformed
-        dibujarPanel(nuevaVentaPanel);   
+        dibujarPanel(panelNuevaVenta);   
     }//GEN-LAST:event_botonNuevaVentaActionPerformed
 
     private void botonProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProveedorActionPerformed
-        dibujarPanel(proveedorPanel);
+        dibujarPanel(panelProveedor);
     }//GEN-LAST:event_botonProveedorActionPerformed
 
     private void botonProductosConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonProductosConfigActionPerformed
-        dibujarPanel(productosPanel);
+        dibujarPanel(panelProducto);
     }//GEN-LAST:event_botonProductosConfigActionPerformed
 
     private void botonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVentasActionPerformed
-        dibujarPanel(ventasPanel);
+        dibujarPanel(panelVenta);
     }//GEN-LAST:event_botonVentasActionPerformed
 
     private void botonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfigActionPerformed
@@ -348,8 +323,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton botonProveedor;
     private javax.swing.JButton botonVentas;
     private javax.swing.JPanel content;
-    private javax.swing.JPanel header;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables

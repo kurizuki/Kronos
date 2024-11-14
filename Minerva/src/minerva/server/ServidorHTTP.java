@@ -14,10 +14,21 @@ import java.net.InetSocketAddress;
  *
  * @author L
  */
-public class ServidorHTTP {
-    static final int PUERTO = 8080;
+public class ServidorHTTP implements Runnable{
+    private static final int PUERTO = 8080;
+
+    public ServidorHTTP() {
+    }
+      
     
-    public static void iniciar() {
+    @Override
+    public void run() {
+        iniciar();
+    }
+    
+    private static long codigoBarrasServidor = 404;
+    
+    private void iniciar() {
         try {            
             HttpServer httpServer = HttpServer.create(new InetSocketAddress("0.0.0.0",PUERTO), 6);
             
@@ -56,7 +67,8 @@ public class ServidorHTTP {
             BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
             String jsonBuilder = new String();
             String linea;
-
+            
+            
             while ((linea = reader.readLine()) != null) {
                 jsonBuilder += linea;
             }
@@ -65,8 +77,14 @@ public class ServidorHTTP {
 
             // Convertir el JSON a una cadena
             Gson gson = new Gson();
+            CodigoBarras codigoBarras = gson.fromJson(jsonBuilder, CodigoBarras.class);
             
-
+            codigoBarras.toString();
+            try {
+                codigoBarrasServidor = Long.parseLong(codigoBarras.getCodigoBarras());
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
             // Aquí puedes procesar el JSON como desees
 
 
@@ -140,6 +158,8 @@ public class ServidorHTTP {
                 os.write(respuesta.getBytes());
             }
         }
+        
+        
     }
 //    implements Runnable y implements AutoCloseable son dos interfaces en Java que sirven para propósitos diferentes. Aquí te explico cada una:
 //
@@ -161,4 +181,8 @@ public class ServidorHTTP {
 //// Para ejecutar la tarea:
 //Thread hilo = new Thread(new MiTarea());
 //hilo.start();
+
+    public static long getCodigoBarrasServidor() {
+        return codigoBarrasServidor;
+    }
 }

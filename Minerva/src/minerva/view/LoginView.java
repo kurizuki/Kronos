@@ -81,19 +81,18 @@ public class LoginView extends javax.swing.JFrame {
         nombreEmpresa_1.setForeground(new java.awt.Color(255, 255, 255));
         nombreEmpresa_1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreEmpresa_1.setText("DRAKO");
-        background.add(nombreEmpresa_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 290, -1));
+        background.add(nombreEmpresa_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 290, -1));
 
         nombreEmpresa_2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         nombreEmpresa_2.setForeground(new java.awt.Color(255, 255, 255));
         nombreEmpresa_2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nombreEmpresa_2.setText("XD");
         background.add(nombreEmpresa_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 290, -1));
 
         nombreEmpresa_3.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         nombreEmpresa_3.setForeground(new java.awt.Color(255, 255, 255));
         nombreEmpresa_3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nombreEmpresa_3.setText("ASOCIADOS");
-        background.add(nombreEmpresa_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 280, 290, -1));
+        background.add(nombreEmpresa_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, 290, -1));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BannerFerreteria.png"))); // NOI18N
         background.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 290, 500));

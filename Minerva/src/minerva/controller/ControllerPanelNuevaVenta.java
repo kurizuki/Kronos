@@ -13,8 +13,5 @@ public class ControllerPanelNuevaVenta {
     public ControllerPanelNuevaVenta() {
     }
 
-    public ControllerPanelNuevaVenta(ControllerSystem systemController) {
-        this.systemController = systemController;
-    }
 
 }

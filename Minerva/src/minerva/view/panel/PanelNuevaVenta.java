@@ -1,8 +1,6 @@
 package minerva.view.panel;
 
 import javax.swing.table.DefaultTableModel;
-import minerva.controller.ControllerPanelNuevaVenta;
-import minerva.controller.ControllerSystem;
 
 /**
  *
@@ -10,15 +8,13 @@ import minerva.controller.ControllerSystem;
  */
 public class PanelNuevaVenta extends javax.swing.JPanel {
     // CONTROLLER
-    ControllerPanelNuevaVenta controllerPanelNuevaVenta = null;
     
     // INSTANCIAS PARA INTERACTUAR CON LA TABLA
     DefaultTableModel model;
     
-    public PanelNuevaVenta(ControllerSystem systemController) {
+    public PanelNuevaVenta() {
         initComponents();
         model = (DefaultTableModel) tablaNuevaVenta.getModel();
-        controllerPanelNuevaVenta= new ControllerPanelNuevaVenta(systemController);
     }      
        
 

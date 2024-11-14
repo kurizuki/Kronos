@@ -1,8 +1,6 @@
 package minerva.controller;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import minerva.model.ExceptionHandler;
 import minerva.model.dto.DTOProducto;
 import minerva.model.entity.Producto;
@@ -12,11 +10,9 @@ import minerva.model.entity.Producto;
  * @author L
  */
 public class ControllerPanelProducto {
-    private ControllerSystem systemController = null;
     private ExceptionHandler exceptionHandler = null;
 
-    public ControllerPanelProducto(ControllerSystem systemController) {
-        this.systemController = systemController;
+    public ControllerPanelProducto() {
     }
     
     public boolean createProductoDB(DTOProducto dtoProducto) {

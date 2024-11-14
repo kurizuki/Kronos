@@ -29,6 +29,15 @@ public class DTOProducto {
         this.ubicacionAlmacen = ubicacionAlmacen;
     }
 
+    public DTOProducto(String nombre, double precio, String descripcion, long stock, long codigoBarras, String ubicacionAlmacen) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.stock = stock;
+        this.codigoBarras = codigoBarras;
+        this.ubicacionAlmacen = ubicacionAlmacen;
+    }
+    
     public long getProductoID() {
         return productoID;
     }

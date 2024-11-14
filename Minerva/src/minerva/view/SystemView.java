@@ -67,13 +67,13 @@ public class SystemView extends javax.swing.JFrame {
     private void initComponents() {
 
         navBar = new javax.swing.JPanel();
-        logoEmpresa = new javax.swing.JLabel();
         botonNuevaVenta = new javax.swing.JButton();
         botonClientes = new javax.swing.JButton();
         botonProveedor = new javax.swing.JButton();
         botonProductos = new javax.swing.JButton();
         botonVentas = new javax.swing.JButton();
         botonConfig = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
         botonExit = new javax.swing.JPanel();
@@ -88,9 +88,6 @@ public class SystemView extends javax.swing.JFrame {
 
         navBar.setBackground(new java.awt.Color(255, 102, 0));
         navBar.setPreferredSize(new java.awt.Dimension(200, 720));
-
-        logoEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoFerreteria.png"))); // NOI18N
 
         botonNuevaVenta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Nventa.png"))); // NOI18N
@@ -152,13 +149,15 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minerva/assets/drako.jpeg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setToolTipText("");
+
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
         navBarLayout.setHorizontalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navBarLayout.createSequentialGroup()
-                .addComponent(logoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(navBarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -167,15 +166,16 @@ public class SystemView extends javax.swing.JFrame {
                     .addComponent(botonClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         navBarLayout.setVerticalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(navBarLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(logoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
                 .addComponent(botonNuevaVenta)
                 .addGap(30, 30, 30)
                 .addComponent(botonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +185,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addComponent(botonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(botonProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 38, Short.MAX_VALUE)
                 .addComponent(botonVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -245,7 +245,7 @@ public class SystemView extends javax.swing.JFrame {
             botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botonExitLayout.createSequentialGroup()
                 .addComponent(botonExitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         botonExitLayout.setVerticalGroup(
             botonExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +349,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton botonVentas;
     private javax.swing.JPanel content;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel logoEmpresa;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,6 @@ import minerva.model.dto.DTOProducto;
 import java.util.ArrayList;
 import minerva.dao.TblProducto;
 import minerva.dao.IDAOProducto;
-import minerva.model.ExceptionHandler;
 
 /**
  *
@@ -20,10 +19,10 @@ public class Producto {
         try {
             readProductoDB(dtoProducto.getCodigoBarras());
         } catch (Exception e) {
-            ExceptionHandler exceptionHandler = new ExceptionHandler("YA EXISTE EL PRODUCTO", e.toString());
+            iDAOProducto.create(dtoProducto); // BOTA LA EXCEPCION DE NO PUDO HACER LOS INSERTS
             return;
         }
-        iDAOProducto.create(dtoProducto);
+        throw new Exception("EL PRODUCTO YA EXISTE EN LA DB");
     }
     
     public static DTOProducto readProductoDB(long codigoBarras) throws Exception {

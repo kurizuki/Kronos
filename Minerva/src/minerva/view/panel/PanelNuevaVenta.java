@@ -19,12 +19,8 @@ public class PanelNuevaVenta extends javax.swing.JPanel {
         initComponents();
         model = (DefaultTableModel) tablaNuevaVenta.getModel();
         controllerPanelNuevaVenta= new ControllerPanelNuevaVenta(systemController);
-        asignarDatosClientePanel();
     }      
        
-    private void asignarDatosClientePanel() {
-        nombreClienteTextField.setText(controllerPanelNuevaVenta.getNombreCliente());
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

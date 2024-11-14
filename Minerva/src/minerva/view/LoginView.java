@@ -53,7 +53,6 @@ public class LoginView extends javax.swing.JFrame {
     private void initComponents() {
 
         background = new javax.swing.JPanel();
-        logo = new javax.swing.JLabel();
         nombreEmpresa_1 = new javax.swing.JLabel();
         nombreEmpresa_2 = new javax.swing.JLabel();
         nombreEmpresa_3 = new javax.swing.JLabel();
@@ -77,10 +76,6 @@ public class LoginView extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoFerreteria.png"))); // NOI18N
-        background.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 290, 150));
 
         nombreEmpresa_1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         nombreEmpresa_1.setForeground(new java.awt.Color(255, 255, 255));
@@ -317,7 +312,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel botonSalirLabel;
     private javax.swing.JPasswordField contrasenaTextField;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel logo;
     private javax.swing.JLabel nombreEmpresa_1;
     private javax.swing.JLabel nombreEmpresa_2;
     private javax.swing.JLabel nombreEmpresa_3;

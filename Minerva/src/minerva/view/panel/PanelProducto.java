@@ -1,12 +1,15 @@
 package minerva.view.panel;
 
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import minerva.controller.ControllerPanelProducto;
 import minerva.controller.ControllerSystem;
-import minerva.model.ExceptionHandler;
+import minerva.model.dto.DTOProducto;
 
 /**
  *
@@ -15,21 +18,89 @@ import minerva.model.ExceptionHandler;
 public class PanelProducto extends javax.swing.JPanel {
 
     // CONTROLLER
-    ControllerPanelProducto productoController = null;
+    ControllerPanelProducto controllerPanelProducto = null;
+    
+    // TABLAS
+    DefaultTableModel modeloTblRegistro = new DefaultTableModel();
+    DefaultTableModel modeloTblConsulta = new DefaultTableModel();
     
     public PanelProducto(ControllerSystem controllerSystem) {
         initComponents();
-        productoController = new ControllerPanelProducto(controllerSystem);
+        controllerPanelProducto = new ControllerPanelProducto(controllerSystem);
         asignarListenerEnter();
     }
     
+    private ArrayList<DTOProducto> consultarPorNombre(String nombre) {
+        nombre.replaceAll("\\s+", "");
+        ArrayList<DTOProducto> dtoProductList = controllerPanelProducto.listAllProductoDB();
+        if (dtoProductList == null) {
+            return null;
+        }
+        ArrayList<DTOProducto> dtoProductListReturn = new ArrayList<>();
+        for (DTOProducto dtoProducto : dtoProductList) {
+            if (dtoProducto.getNombre().replaceAll("\\s+", "").equals(nombre)) {
+                dtoProductListReturn.add(dtoProducto);
+            }
+        }
+        return dtoProductList;
+    }
+    
     private void asignarListenerEnter() {
-        codigoBarrasTextField.addActionListener(new ActionListener() {
+        codigoBarrasTextFieldTblRegistro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                botonRegistrarProductoActionPerformed(evt);
+                botonRegistrarProductoTblRegistroActionPerformed(evt);
             }
         });
+        botonRegistrarProductoTblRegistro.addKeyListener( new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    botonRegistrarProductoTblRegistro.doClick();
+                }
+            }   
+        });
+    }
+    
+    private void agregarFilaTblConsulta(String nombre, double precio, String descripcion, long stock, long codigoBarras) {
+        Object[] objects= new Object[5];
+        objects[0] = nombre;
+        objects[1] = precio;
+        objects[2] = descripcion;
+        objects[3] = stock;
+        objects[4] = codigoBarras;
+        
+        modeloTblConsulta = (DefaultTableModel) tblConsulta.getModel();
+        
+        modeloTblConsulta.addRow(objects);      
+    }
+    
+    private void agregarFilaTblRegistro(String nombre, double precio, String descripcion, long stock) {
+        Object[] objects= new Object[4];
+        objects[0] = nombre;
+        objects[1] = precio;
+        objects[2] = descripcion;
+        objects[3] = stock;
+        
+        modeloTblRegistro = (DefaultTableModel) tblRegistro.getModel();
+        
+        modeloTblRegistro.addRow(objects);
+        // TablaRegistro.setModel(modeloTblRegistro);
+    }
+    
+    private void limpiarTblRegistro() {
+        modeloTblRegistro = (DefaultTableModel) tblRegistro.getModel();
+        for (int i = modeloTblRegistro.getRowCount() -1; i >= 0 ; i--) {
+            modeloTblRegistro.removeRow(i);
+        }
+    }
+    
+    private void limpiarTblConsulta() {
+        modeloTblConsulta = (DefaultTableModel) tblConsulta.getModel();
+        
+        for (int i = modeloTblConsulta.getRowCount() -1; i >= 0 ; i--) {
+            modeloTblConsulta.removeRow(i);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,56 +113,73 @@ public class PanelProducto extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        REGISTRO = new javax.swing.JTabbedPane();
-        panel_4 = new javax.swing.JPanel();
+        panelProducto = new javax.swing.JTabbedPane();
+        subPanelRegistro = new javax.swing.JPanel();
         codigo_panel_4 = new javax.swing.JLabel();
-        nombreTextField = new javax.swing.JTextField();
+        nombreTextFieldTblRegistro = new javax.swing.JTextField();
         descripcion_panel_4 = new javax.swing.JLabel();
-        precioTextField = new javax.swing.JTextField();
+        precioTextFieldTblRegistro = new javax.swing.JTextField();
         cantidad_panel_4 = new javax.swing.JLabel();
-        stockTextField = new javax.swing.JTextField();
+        stockTextFieldTblRegistro = new javax.swing.JTextField();
         precio_panel_4 = new javax.swing.JLabel();
-        codigoBarrasTextField = new javax.swing.JTextField();
+        codigoBarrasTextFieldTblRegistro = new javax.swing.JTextField();
         proveedor_4 = new javax.swing.JLabel();
         tabla_productos = new javax.swing.JScrollPane();
-        TablaRegistro = new javax.swing.JTable();
-        botonRegistrarProducto = new javax.swing.JButton();
-        descripcionTextField = new javax.swing.JTextField();
-        CONSULTA = new javax.swing.JPanel();
+        tblRegistro = new javax.swing.JTable();
+        botonRegistrarProductoTblRegistro = new javax.swing.JButton();
+        descripcionTextFieldTblRegistro = new javax.swing.JTextField();
+        botonLimpiarTblRegistro = new javax.swing.JButton();
+        subPanelConsulta = new javax.swing.JPanel();
         tabla_productos1 = new javax.swing.JScrollPane();
-        tablaConsulta = new javax.swing.JTable();
-        botonNuevo_5 = new javax.swing.JButton();
-        precioTXT_5 = new javax.swing.JTextField();
-        precio_panel_5 = new javax.swing.JLabel();
-        botonActualizar = new javax.swing.JCheckBox();
+        tblConsulta = new javax.swing.JTable();
+        consultarProductoPorCodigo = new javax.swing.JButton();
+        codigoBarrasTextFieldTblConsulta = new javax.swing.JTextField();
+        CODIGO_BARRAS_LABEL = new javax.swing.JLabel();
+        botonListarProductoTblConsulta = new javax.swing.JButton();
+        botonLimpiarTblConsulta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        nombreTextFieldTblConsulta = new javax.swing.JTextField();
+        botonConsultarProductoPorNombre = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        descripcion_panel_5 = new javax.swing.JLabel();
+        precioTextFieldActualizar = new javax.swing.JTextField();
+        stockTextFieldActualizar = new javax.swing.JTextField();
+        cantidad_panel_5 = new javax.swing.JLabel();
+        proveedor_5 = new javax.swing.JLabel();
+        descripcionTextFieldActualizar = new javax.swing.JTextField();
+        botonActualizarProducto = new javax.swing.JButton();
+        precio_panel_6 = new javax.swing.JLabel();
+        codigoBarrasTextFieldActualizar = new javax.swing.JTextField();
+        nombreTextFieldaActualizar = new javax.swing.JTextField();
+        codigo_panel_6 = new javax.swing.JLabel();
+        botonConsultarPorCodigo = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
-        REGISTRO.addContainerListener(new java.awt.event.ContainerAdapter() {
+        panelProducto.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
-                REGISTROComponentAdded(evt);
+                panelProductoComponentAdded(evt);
             }
         });
 
-        panel_4.addContainerListener(new java.awt.event.ContainerAdapter() {
+        subPanelRegistro.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
-                panel_4ComponentAdded(evt);
+                subPanelRegistroComponentAdded(evt);
             }
         });
 
         codigo_panel_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         codigo_panel_4.setText("NOMBRE");
 
-        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
+        nombreTextFieldTblRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreTextFieldActionPerformed(evt);
+                nombreTextFieldTblRegistroActionPerformed(evt);
             }
         });
 
         descripcion_panel_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         descripcion_panel_4.setText("PRECIO");
 
-        precioTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        precioTextFieldTblRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 precioKeyTyped(evt);
             }
@@ -100,12 +188,12 @@ public class PanelProducto extends javax.swing.JPanel {
         cantidad_panel_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         cantidad_panel_4.setText("STOCK");
 
-        stockTextField.addActionListener(new java.awt.event.ActionListener() {
+        stockTextFieldTblRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stockTextFieldActionPerformed(evt);
+                stockTextFieldTblRegistroActionPerformed(evt);
             }
         });
-        stockTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        stockTextFieldTblRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 stockKeyTyped(evt);
             }
@@ -114,12 +202,12 @@ public class PanelProducto extends javax.swing.JPanel {
         precio_panel_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         precio_panel_4.setText("CODIGO BARRAS");
 
-        codigoBarrasTextField.addActionListener(new java.awt.event.ActionListener() {
+        codigoBarrasTextFieldTblRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoBarrasTextFieldActionPerformed(evt);
+                codigoBarrasTextFieldTblRegistroActionPerformed(evt);
             }
         });
-        codigoBarrasTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        codigoBarrasTextFieldTblRegistro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 codigoBarrasKeyTyped(evt);
             }
@@ -128,7 +216,7 @@ public class PanelProducto extends javax.swing.JPanel {
         proveedor_4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         proveedor_4.setText("DESCRIPCION");
 
-        TablaRegistro.setModel(new javax.swing.table.DefaultTableModel(
+        tblRegistro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -144,95 +232,104 @@ public class PanelProducto extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabla_productos.setViewportView(TablaRegistro);
+        tabla_productos.setViewportView(tblRegistro);
 
-        botonRegistrarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
-        botonRegistrarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        botonRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
+        botonRegistrarProductoTblRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/GuardarTodo.png"))); // NOI18N
+        botonRegistrarProductoTblRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonRegistrarProductoTblRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrarProductoActionPerformed(evt);
+                botonRegistrarProductoTblRegistroActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panel_4Layout = new javax.swing.GroupLayout(panel_4);
-        panel_4.setLayout(panel_4Layout);
-        panel_4Layout.setHorizontalGroup(
-            panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_4Layout.createSequentialGroup()
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_4Layout.createSequentialGroup()
-                        .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_4Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(precioTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_4Layout.createSequentialGroup()
-                                            .addComponent(proveedor_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(descripcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panel_4Layout.createSequentialGroup()
-                                            .addComponent(precio_panel_4)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(codigoBarrasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(panel_4Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_4Layout.createSequentialGroup()
+        botonLimpiarTblRegistro.setText("X");
+        botonLimpiarTblRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarTblRegistroActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout subPanelRegistroLayout = new javax.swing.GroupLayout(subPanelRegistro);
+        subPanelRegistro.setLayout(subPanelRegistroLayout);
+        subPanelRegistroLayout.setHorizontalGroup(
+            subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelRegistroLayout.createSequentialGroup()
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(subPanelRegistroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelRegistroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(precioTextFieldTblRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelRegistroLayout.createSequentialGroup()
+                                        .addComponent(proveedor_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(descripcionTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(subPanelRegistroLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(subPanelRegistroLayout.createSequentialGroup()
                                         .addComponent(cantidad_panel_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel_4Layout.createSequentialGroup()
-                                        .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(descripcion_panel_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(panel_4Layout.createSequentialGroup()
-                                                .addComponent(codigo_panel_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(26, 26, 26)
-                                                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(18, 18, 18))
-                    .addGroup(panel_4Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(botonRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115)))
+                                        .addComponent(stockTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(descripcion_panel_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(subPanelRegistroLayout.createSequentialGroup()
+                                .addComponent(precio_panel_4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(codigoBarrasTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, subPanelRegistroLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(codigo_panel_4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(nombreTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(subPanelRegistroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(botonLimpiarTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonRegistrarProductoTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 18, Short.MAX_VALUE)
                 .addComponent(tabla_productos, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panel_4Layout.setVerticalGroup(
-            panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_4Layout.createSequentialGroup()
+        subPanelRegistroLayout.setVerticalGroup(
+            subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelRegistroLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigo_panel_4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(precioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(precioTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(descripcion_panel_4))
                 .addGap(42, 42, 42)
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stockTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cantidad_panel_4))
                 .addGap(44, 44, 44)
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(proveedor_4)
-                    .addComponent(descripcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descripcionTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addGroup(panel_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoBarrasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codigoBarrasTextFieldTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(precio_panel_4))
-                .addGap(42, 42, 42)
-                .addComponent(botonRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_4Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(subPanelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonRegistrarProductoTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonLimpiarTblRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelRegistroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabla_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        REGISTRO.addTab("REGISTRO", panel_4);
+        panelProducto.addTab("REGISTRO", subPanelRegistro);
 
-        tablaConsulta.setModel(new javax.swing.table.DefaultTableModel(
+        tblConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -248,89 +345,271 @@ public class PanelProducto extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabla_productos1.setViewportView(tablaConsulta);
+        tabla_productos1.setViewportView(tblConsulta);
 
-        botonNuevo_5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
-        botonNuevo_5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        precioTXT_5.addActionListener(new java.awt.event.ActionListener() {
+        consultarProductoPorCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.png"))); // NOI18N
+        consultarProductoPorCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        consultarProductoPorCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precioTXT_5ActionPerformed(evt);
+                consultarProductoPorCodigoActionPerformed(evt);
             }
         });
 
-        precio_panel_5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        precio_panel_5.setText("CODIGO BARRAS");
-
-        botonActualizar.setText("ACTUALIZAR PRODUCTO");
-        botonActualizar.setToolTipText("");
-        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+        codigoBarrasTextFieldTblConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonActualizarActionPerformed(evt);
+                codigoBarrasTextFieldTblConsultaActionPerformed(evt);
+            }
+        });
+        codigoBarrasTextFieldTblConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoBarrasTblConsultaKeyTyped(evt);
             }
         });
 
-        jLabel1.setText("MODO");
+        CODIGO_BARRAS_LABEL.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        CODIGO_BARRAS_LABEL.setText("CODIGO BARRAS");
 
-        javax.swing.GroupLayout CONSULTALayout = new javax.swing.GroupLayout(CONSULTA);
-        CONSULTA.setLayout(CONSULTALayout);
-        CONSULTALayout.setHorizontalGroup(
-            CONSULTALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CONSULTALayout.createSequentialGroup()
-                .addGroup(CONSULTALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CONSULTALayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(precio_panel_5))
-                    .addGroup(CONSULTALayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(botonNuevo_5, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CONSULTALayout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel1))
-                    .addGroup(CONSULTALayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(precioTXT_5, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CONSULTALayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(botonActualizar)))
-                .addGap(12, 12, 12)
-                .addComponent(tabla_productos1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+        botonListarProductoTblConsulta.setText("listar");
+        botonListarProductoTblConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListarProductoTblConsultaActionPerformed(evt);
+            }
+        });
+
+        botonLimpiarTblConsulta.setText("X");
+        botonLimpiarTblConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarTblConsultaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("NOMBRE");
+
+        botonConsultarProductoPorNombre.setText("CONSULTAR");
+        botonConsultarProductoPorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarProductoPorNombreActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout subPanelConsultaLayout = new javax.swing.GroupLayout(subPanelConsulta);
+        subPanelConsulta.setLayout(subPanelConsultaLayout);
+        subPanelConsultaLayout.setHorizontalGroup(
+            subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                .addGroup(subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(botonConsultarProductoPorNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                        .addGroup(subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelConsultaLayout.createSequentialGroup()
+                                .addGap(0, 15, Short.MAX_VALUE)
+                                .addComponent(nombreTextFieldTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                                .addGap(84, 84, 84)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelConsultaLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                                        .addGroup(subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                                                .addGap(52, 52, 52)
+                                                .addComponent(CODIGO_BARRAS_LABEL))
+                                            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                                                .addGap(66, 66, 66)
+                                                .addComponent(consultarProductoPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(codigoBarrasTextFieldTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(botonLimpiarTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(botonListarProductoTblConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(tabla_productos1, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        CONSULTALayout.setVerticalGroup(
-            CONSULTALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CONSULTALayout.createSequentialGroup()
-                .addGap(76, 76, 76)
+        subPanelConsultaLayout.setVerticalGroup(
+            subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subPanelConsultaLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(precio_panel_5)
+                .addComponent(nombreTextFieldTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonConsultarProductoPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(subPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonListarProductoTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonLimpiarTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
+                .addComponent(CODIGO_BARRAS_LABEL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(precioTXT_5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                .addComponent(botonNuevo_5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CONSULTALayout.createSequentialGroup()
+                .addComponent(codigoBarrasTextFieldTblConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(consultarProductoPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabla_productos1)
+                .addComponent(tabla_productos1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        REGISTRO.addTab("CONSULTA", CONSULTA);
+        panelProducto.addTab("CONSULTA", subPanelConsulta);
+
+        descripcion_panel_5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        descripcion_panel_5.setText("PRECIO");
+
+        precioTextFieldActualizar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                precioTextFieldActualizarprecioKeyTyped(evt);
+            }
+        });
+
+        stockTextFieldActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockTextFieldActualizarActionPerformed(evt);
+            }
+        });
+        stockTextFieldActualizar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stockTextFieldActualizarstockKeyTyped(evt);
+            }
+        });
+
+        cantidad_panel_5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        cantidad_panel_5.setText("STOCK");
+
+        proveedor_5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        proveedor_5.setText("DESCRIPCION");
+
+        botonActualizarProducto.setText("actualizar");
+        botonActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarProductoActionPerformed(evt);
+            }
+        });
+
+        precio_panel_6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        precio_panel_6.setText("CODIGO BARRAS");
+
+        codigoBarrasTextFieldActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoBarrasTextFieldActualizarActionPerformed(evt);
+            }
+        });
+        codigoBarrasTextFieldActualizar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoBarrasTextFieldActualizarcodigoBarrasKeyTyped(evt);
+            }
+        });
+
+        nombreTextFieldaActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreTextFieldaActualizarActionPerformed(evt);
+            }
+        });
+
+        codigo_panel_6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        codigo_panel_6.setText("NOMBRE");
+
+        botonConsultarPorCodigo.setText("CONSULTAR CODIGO");
+        botonConsultarPorCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConsultarPorCodigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(botonConsultarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(precio_panel_6)
+                        .addGap(18, 18, 18)
+                        .addComponent(codigoBarrasTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(codigo_panel_6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nombreTextFieldaActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(proveedor_5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(descripcionTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(descripcion_panel_5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(precioTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(cantidad_panel_5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(stockTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(189, 189, 189)
+                .addComponent(botonActualizarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreTextFieldaActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codigo_panel_6))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descripcion_panel_5)
+                    .addComponent(precioTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonConsultarPorCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(stockTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cantidad_panel_5))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(botonActualizarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(descripcionTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(proveedor_5)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codigoBarrasTextFieldActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precio_panel_6))))
+                .addGap(300, 300, 300))
+        );
+
+        panelProducto.addTab("ACTUALIZAR", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1080, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 575, Short.MAX_VALUE)
         );
 
-        REGISTRO.addTab("tab3", jPanel1);
+        panelProducto.addTab("MODIFICAR", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -340,7 +619,7 @@ public class PanelProducto extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(REGISTRO, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 1080, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -349,67 +628,102 @@ public class PanelProducto extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(REGISTRO, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void REGISTROComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_REGISTROComponentAdded
+    private void panelProductoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_panelProductoComponentAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_REGISTROComponentAdded
+    }//GEN-LAST:event_panelProductoComponentAdded
 
-    private void panel_4ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_panel_4ComponentAdded
+    private void subPanelRegistroComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_subPanelRegistroComponentAdded
         // TODO add your handling code here:
-    }//GEN-LAST:event_panel_4ComponentAdded
+    }//GEN-LAST:event_subPanelRegistroComponentAdded
 
-    private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
+    private void nombreTextFieldTblRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldTblRegistroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreTextFieldActionPerformed
+    }//GEN-LAST:event_nombreTextFieldTblRegistroActionPerformed
 
-    private void precioTXT_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioTXT_5ActionPerformed
+    private void codigoBarrasTextFieldTblConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldTblConsultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_precioTXT_5ActionPerformed
+    }//GEN-LAST:event_codigoBarrasTextFieldTblConsultaActionPerformed
 
-    private void stockTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockTextFieldActionPerformed
+    private void stockTextFieldTblRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockTextFieldTblRegistroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_stockTextFieldActionPerformed
+    }//GEN-LAST:event_stockTextFieldTblRegistroActionPerformed
 
-    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonActualizarActionPerformed
-
-    private void botonRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarProductoActionPerformed
-        // VALIDEMOS QUE LOS CAMPOS NECESARIOS PARA EL REGISTRO NO ESTEN VACIOS
-        // USAMOS EL TRY POR LOS POSIBLES DATOS INCOPATIBLES QUE PUEDA INGRESAR EL USUARIO
-        String mensaje = "";
-        try {
-            if (nombreTextField.getText().isEmpty()) {
-                mensaje = "FALTA NOMBRE";
-            } else if (precioTextField.getText().isEmpty() || Integer.parseInt(precioTextField.getText()) <  1){
-                mensaje = "FALTA PRECIO";
-            } else if (descripcionTextField.getText().isEmpty()) {
-                mensaje = "FALTA DESCRIPCION";
-            } else if (stockTextField.getText().isEmpty() || Integer.parseInt(stockTextField.getText()) <  1) {
-                mensaje = "FALTA STOCK";
-            } else if (codigoBarrasTextField.getText().isEmpty() || Integer.parseInt(codigoBarrasTextField.getText()) <  1) {
-                mensaje = "FALTA CODIGO BARRAS";
-            }
-        } catch (HeadlessException | NumberFormatException e) {
-            ExceptionHandler exceptionHandler = new ExceptionHandler("CAYO LA ULTIMA BARRERA DE DEFENSA CONTRA LOS ERRORES XDDD", e.toString());
+    private void botonRegistrarProductoTblRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarProductoTblRegistroActionPerformed
+        String nombre = nombreTextFieldTblRegistro.getText().trim();
+        String descripcion = descripcionTextFieldTblRegistro.getText().trim();
+        String ubicacionAlmacen = ""; 
+        double precio;
+        long stock;
+        long codigoBarras;
+      
+        // VALIDACION NOMBRE
+        if (nombre.isEmpty()) {
+            mostrarMensaje("FALTA NOMBRE");
             return;
         }
         
-        if (!(mensaje.isEmpty())) {
-            JOptionPane.showMessageDialog(null, mensaje);
+        // VALIDACION PRECIO
+        try {
+            precio = Double.parseDouble(precioTextFieldTblRegistro.getText().trim());
+            if (precio <= 0) {
+                mostrarMensaje("FALTA PRECIO");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("FALTA PRECIO");
             return;
         }
+        
+        // VALIDACION STOCK
+        try {
+            stock = Long.parseLong(stockTextFieldTblRegistro.getText().trim());
+            if (stock <= 0) {
+                mostrarMensaje("FALTA STOCK");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("FALTA STOCK");
+            return;
+        }
+        
+        // VALIDACION DESCRIPCION
+        if (descripcion.isEmpty()) {
+            mostrarMensaje("FALTA DESCRIPCION");
+            return;
+        } 
+        
+        // VALIDACION CODIGO BARRAS
+        try {
+            codigoBarras = Long.parseLong(codigoBarrasTextFieldTblRegistro.getText().trim());
+            if (codigoBarras <= 0) {
+                mostrarMensaje("FALTA CODIGO BARRAS");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("FALTA CODIGO BARRAS");
+            return;
+        }
+        
+        DTOProducto dtoProducto = new DTOProducto(nombre, precio, descripcion, stock, codigoBarras, ubicacionAlmacen);
                 
-        System.out.println("LLEGAMOS AL FINAL");
-    }//GEN-LAST:event_botonRegistrarProductoActionPerformed
-
-    private void codigoBarrasTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldActionPerformed
+        boolean operacionRegistro = controllerPanelProducto.createProductoDB(dtoProducto);
+        
+        if (operacionRegistro) {
+            agregarFilaTblRegistro(nombre, precio, descripcion,stock);
+        }        
+    }//GEN-LAST:event_botonRegistrarProductoTblRegistroActionPerformed
+    
+    private void mostrarMensaje(String mensajeError) {
+        JOptionPane.showMessageDialog(null, mensajeError);
+    }
+    private void codigoBarrasTextFieldTblRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldTblRegistroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_codigoBarrasTextFieldActionPerformed
+    }//GEN-LAST:event_codigoBarrasTextFieldTblRegistroActionPerformed
 
     private void codigoBarrasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarrasKeyTyped
         // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
@@ -430,41 +744,285 @@ public class PanelProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_stockKeyTyped
 
     private void precioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precioKeyTyped
+        char c = evt.getKeyChar();
+        String texto = ((javax.swing.JTextField) evt.getSource()).getText();
+
+        // Permite la entrada de números y el punto ('.')
+        if ((c < '0' || c > '9') && c != '.') {
+            evt.consume(); // Consume el evento si no es un número ni un punto
+            return;
+        }
+
+        // Limita la longitud total del texto a 20 caracteres (incluyendo el punto)
+        if (texto.length() >= 20 && c != '\b') { // \b es el código para la tecla Backspace
+            evt.consume(); // Si el texto tiene 20 caracteres, no permite más entradas
+            return;
+        }
+
+        // Permite solo un punto decimal
+        if (c == '.' && texto.contains(".")) {
+            evt.consume(); // Consume el evento si ya existe un punto en el texto
+            return;
+        }
+
+        // Permite máximo 3 decimales después del punto
+        if (texto.contains(".")) {
+            int cantidadDecimales = texto.substring(texto.indexOf('.') + 1).length();
+            if (cantidadDecimales >= 3 && c != '\b') { // Si ya hay 3 decimales, no permite más
+                evt.consume(); // Consume el evento si ya hay 3 decimales
+            }
+        }
+    }//GEN-LAST:event_precioKeyTyped
+
+    private void botonLimpiarTblRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarTblRegistroActionPerformed
+        limpiarTblRegistro();
+    }//GEN-LAST:event_botonLimpiarTblRegistroActionPerformed
+
+    private void consultarProductoPorCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarProductoPorCodigoActionPerformed
+        long codigoBarras = 0;
+        try {
+            codigoBarras = Long.parseLong(codigoBarrasTextFieldTblConsulta.getText().trim());
+            if (codigoBarras <= 0) {
+                mostrarMensaje("FALTA CODIGO BARRAS");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("FALTA CODIGO BARRAS");
+            return;
+        }
+        
+        DTOProducto dtoProducto = controllerPanelProducto.readProductoDB(codigoBarras);
+        
+        if (dtoProducto != null) {
+            agregarFilaTblConsulta(dtoProducto.getNombre(), dtoProducto.getPrecio(), dtoProducto.getDescripcion(), dtoProducto.getStock(), dtoProducto.getCodigoBarras());
+        }        
+    }//GEN-LAST:event_consultarProductoPorCodigoActionPerformed
+
+    private void codigoBarrasTblConsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarrasTblConsultaKeyTyped
         // CODIGO PARA QUE SOLAMENTE SE PUEDAN INGRESAR NUMEROS
         char c = evt.getKeyChar();
         
         if (c<'0' || c> '9') {
             evt.consume();            
         }
-    }//GEN-LAST:event_precioKeyTyped
+    }//GEN-LAST:event_codigoBarrasTblConsultaKeyTyped
+
+    private void botonLimpiarTblConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarTblConsultaActionPerformed
+        limpiarTblConsulta();
+    }//GEN-LAST:event_botonLimpiarTblConsultaActionPerformed
+
+    private void botonListarProductoTblConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListarProductoTblConsultaActionPerformed
+        ArrayList<DTOProducto> dtoProductoList= controllerPanelProducto.listAllProductoDB();
+        
+        if (dtoProductoList != null) {
+            limpiarTblConsulta();
+            for (DTOProducto dtoProducto : dtoProductoList) {
+                agregarFilaTblConsulta(dtoProducto.getNombre(), dtoProducto.getPrecio(), dtoProducto.getDescripcion(), dtoProducto.getStock(), dtoProducto.getCodigoBarras());
+            }
+        }        
+    }//GEN-LAST:event_botonListarProductoTblConsultaActionPerformed
+
+    private void precioTextFieldActualizarprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precioTextFieldActualizarprecioKeyTyped
+        char c = evt.getKeyChar();
+        String texto = ((javax.swing.JTextField) evt.getSource()).getText();
+
+        // Permite la entrada de números y el punto ('.')
+        if ((c < '0' || c > '9') && c != '.') {
+            evt.consume(); // Consume el evento si no es un número ni un punto
+            return;
+        }
+
+        // Limita la longitud total del texto a 20 caracteres (incluyendo el punto)
+        if (texto.length() >= 20 && c != '\b') { // \b es el código para la tecla Backspace
+            evt.consume(); // Si el texto tiene 20 caracteres, no permite más entradas
+            return;
+        }
+
+        // Permite solo un punto decimal
+        if (c == '.' && texto.contains(".")) {
+            evt.consume(); // Consume el evento si ya existe un punto en el texto
+            return;
+        }
+
+        // Permite máximo 3 decimales después del punto
+        if (texto.contains(".")) {
+            int cantidadDecimales = texto.substring(texto.indexOf('.') + 1).length();
+            if (cantidadDecimales >= 3 && c != '\b') { // Si ya hay 3 decimales, no permite más
+                evt.consume(); // Consume el evento si ya hay 3 decimales
+            }
+        }
+    }//GEN-LAST:event_precioTextFieldActualizarprecioKeyTyped
+
+    private void stockTextFieldActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockTextFieldActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockTextFieldActualizarActionPerformed
+
+    private void stockTextFieldActualizarstockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockTextFieldActualizarstockKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockTextFieldActualizarstockKeyTyped
+
+    private void botonConsultarProductoPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarProductoPorNombreActionPerformed
+        String nombreProducto = nombreTextFieldTblConsulta.getText();
+        
+        if (nombreProducto.isEmpty()) {
+            return;
+        }
+        
+        ArrayList<DTOProducto> dtoProductoList = consultarPorNombre(nombreProducto);
+        
+        if (dtoProductoList != null) {
+            for (DTOProducto dtoProducto : dtoProductoList) {
+                agregarFilaTblConsulta(dtoProducto.getNombre(), dtoProducto.getPrecio(), dtoProducto.getDescripcion(), dtoProducto.getStock(), dtoProducto.getCodigoBarras());            
+            }
+        }       
+    }//GEN-LAST:event_botonConsultarProductoPorNombreActionPerformed
+
+    private void codigoBarrasTextFieldActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoBarrasTextFieldActualizarActionPerformed
+
+    private void codigoBarrasTextFieldActualizarcodigoBarrasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoBarrasTextFieldActualizarcodigoBarrasKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoBarrasTextFieldActualizarcodigoBarrasKeyTyped
+
+    private void nombreTextFieldaActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldaActualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreTextFieldaActualizarActionPerformed
+
+    private void botonConsultarPorCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarPorCodigoActionPerformed
+        long codigoBarras = 0;
+        try {
+            codigoBarras = Long.parseLong(codigoBarrasTextFieldActualizar.getText().trim());
+            if (codigoBarras <= 0) {
+                mostrarMensaje("FALTA CODIGO BARRAS");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("FALTA CODIGO BARRAS");
+            return;
+        }
+        
+        DTOProducto dtoProducto = controllerPanelProducto.readProductoDB(codigoBarras);
+        
+        nombreTextFieldaActualizar.setText(dtoProducto.getNombre());
+        precioTextFieldActualizar.setText(String.valueOf(dtoProducto.getPrecio()));
+        stockTextFieldActualizar.setText(String.valueOf(dtoProducto.getStock()));
+        descripcionTextFieldActualizar.setText(dtoProducto.getDescripcion());
+    }//GEN-LAST:event_botonConsultarPorCodigoActionPerformed
+
+    private void botonActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarProductoActionPerformed
+        // Obtener los valores de los campos de texto
+        String nombre = nombreTextFieldaActualizar.getText().trim();
+        String precioStr = precioTextFieldActualizar.getText().trim();
+        String stockStr = stockTextFieldActualizar.getText().trim();
+        String descripcion = descripcionTextFieldActualizar.getText().trim();
+        String codigoBarrasStr = codigoBarrasTextFieldActualizar.getText().trim();
+
+        // VALIDACION NOMBRE
+        if (nombre.isEmpty()) {
+            mostrarMensaje("FALTA NOMBRE");
+            return;
+        }
+
+        // VALIDACION PRECIO
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio <= 0) {
+                mostrarMensaje("FALTA PRECIO");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("PRECIO INVÁLIDO");
+            return;
+        }
+
+        // VALIDACION STOCK
+        long stock;
+        try {
+            stock = Long.parseLong(stockStr);
+            if (stock <= 0) {
+                mostrarMensaje("FALTA STOCK");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("STOCK INVÁLIDO");
+            return;
+        }
+
+        // VALIDACION DESCRIPCION
+        if (descripcion.isEmpty()) {
+            mostrarMensaje("FALTA DESCRIPCION");
+            return;
+        }
+
+        // VALIDACION CODIGO BARRAS
+        long codigoBarras;
+        try {
+            codigoBarras = Long.parseLong(codigoBarrasStr);
+            if (codigoBarras <= 0) {
+                mostrarMensaje("FALTA CÓDIGO DE BARRAS");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensaje("CÓDIGO DE BARRAS INVÁLIDO");
+            return;
+        }
+        
+        long productoID = controllerPanelProducto.readProductoDB(codigoBarras).getProductoID();
+        
+        DTOProducto dtoProducto = new DTOProducto( productoID, nombre, precio, descripcion, stock, codigoBarras, "");
+        boolean operacionActualizar = controllerPanelProducto.updateProductoDB(dtoProducto);
+
+        if (operacionActualizar) {
+            mostrarMensaje("ACTUALIZACION REALIZADA CON EXITO");
+        }
+    }//GEN-LAST:event_botonActualizarProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CONSULTA;
-    private javax.swing.JTabbedPane REGISTRO;
-    private javax.swing.JTable TablaRegistro;
-    private javax.swing.JCheckBox botonActualizar;
-    private javax.swing.JButton botonNuevo_5;
-    private javax.swing.JButton botonRegistrarProducto;
+    private javax.swing.JLabel CODIGO_BARRAS_LABEL;
+    private javax.swing.JButton botonActualizarProducto;
+    private javax.swing.JButton botonConsultarPorCodigo;
+    private javax.swing.JButton botonConsultarProductoPorNombre;
+    private javax.swing.JButton botonLimpiarTblConsulta;
+    private javax.swing.JButton botonLimpiarTblRegistro;
+    private javax.swing.JButton botonListarProductoTblConsulta;
+    private javax.swing.JButton botonRegistrarProductoTblRegistro;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cantidad_panel_4;
-    private javax.swing.JTextField codigoBarrasTextField;
+    private javax.swing.JLabel cantidad_panel_5;
+    private javax.swing.JTextField codigoBarrasTextFieldActualizar;
+    private javax.swing.JTextField codigoBarrasTextFieldTblConsulta;
+    private javax.swing.JTextField codigoBarrasTextFieldTblRegistro;
     private javax.swing.JLabel codigo_panel_4;
-    private javax.swing.JTextField descripcionTextField;
+    private javax.swing.JLabel codigo_panel_6;
+    private javax.swing.JButton consultarProductoPorCodigo;
+    private javax.swing.JTextField descripcionTextFieldActualizar;
+    private javax.swing.JTextField descripcionTextFieldTblRegistro;
     private javax.swing.JLabel descripcion_panel_4;
+    private javax.swing.JLabel descripcion_panel_5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nombreTextField;
-    private javax.swing.JPanel panel_4;
-    private javax.swing.JTextField precioTXT_5;
-    private javax.swing.JTextField precioTextField;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField nombreTextFieldTblConsulta;
+    private javax.swing.JTextField nombreTextFieldTblRegistro;
+    private javax.swing.JTextField nombreTextFieldaActualizar;
+    private javax.swing.JTabbedPane panelProducto;
+    private javax.swing.JTextField precioTextFieldActualizar;
+    private javax.swing.JTextField precioTextFieldTblRegistro;
     private javax.swing.JLabel precio_panel_4;
-    private javax.swing.JLabel precio_panel_5;
+    private javax.swing.JLabel precio_panel_6;
     private javax.swing.JLabel proveedor_4;
-    private javax.swing.JTextField stockTextField;
-    private javax.swing.JTable tablaConsulta;
+    private javax.swing.JLabel proveedor_5;
+    private javax.swing.JTextField stockTextFieldActualizar;
+    private javax.swing.JTextField stockTextFieldTblRegistro;
+    private javax.swing.JPanel subPanelConsulta;
+    private javax.swing.JPanel subPanelRegistro;
     private javax.swing.JScrollPane tabla_productos;
     private javax.swing.JScrollPane tabla_productos1;
+    private javax.swing.JTable tblConsulta;
+    private javax.swing.JTable tblRegistro;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,26 +8,13 @@ import minerva.model.dto.DTOCliente;
  */
 public class ControllerPanelNuevaVenta {
     // CONTROLADOR
-    private ControllerSystem systemController = null;
-    
-    // DTO NECESARIOS
-    private DTOCliente dTOCliente = null;
+    private ControllerSystem systemController = null;    
     
     public ControllerPanelNuevaVenta() {
     }
 
     public ControllerPanelNuevaVenta(ControllerSystem systemController) {
         this.systemController = systemController;
-        asignarDTO();
-    }
-    
-    // ASIGNAMOS LOS DTO QUE NECESITA EL PANEL    
-    private void asignarDTO() {
-        dTOCliente = systemController.getDtoCliente();
-    }
-    
-    public String getNombreCliente() {
-        return dTOCliente.getNombres();
     }
 
 }

@@ -1,7 +1,6 @@
 package minerva.controller;
 
-import minerva.model.dto.DTOCliente;
-import minerva.model.dto.DTOProducto;
+import javax.swing.JOptionPane;
 import minerva.model.entity.Vendedor;
 import minerva.model.dto.DTOVendedor;
 
@@ -11,8 +10,6 @@ import minerva.model.dto.DTOVendedor;
  */
 public class ControllerSystem {
     private DTOVendedor dtoVendedor = null;
-    private DTOCliente dtoCliente = null;
-    private DTOProducto dtoProducto = null;
 
     public ControllerSystem() {
     }
@@ -25,26 +22,14 @@ public class ControllerSystem {
     private void asignarDTO(String usuario) {
         try {
             dtoVendedor = Vendedor.readVendedorDB(usuario);
-            
-            // ¡¡¡¡¡¡¡¡¡ ACUERDATE CAMBIAR ESTO!!!!!!!!!!!!
-            dtoCliente = new DTOCliente();
-            // ----------
         } catch (Exception ex) {
             System.out.println("CAYO LA UTLIMA BARRERA DE DEFENSA CONTRA LOS ERRRORES XD");
             dtoVendedor = new DTOVendedor(404, "404", "404", null);
         }
     }
-
-    public DTOCliente getDtoCliente() {
-        return dtoCliente;
+    
+    public void mostrarMensaje(String mensajeError) {
+        JOptionPane.showMessageDialog(null, mensajeError);
     }
-
-    public DTOVendedor getDtoVendedor() {
-        return dtoVendedor;
-    }
-
-    public DTOProducto getDtoProducto() {
-        return dtoProducto;
-    }   
    
 }

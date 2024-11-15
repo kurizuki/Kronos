@@ -4,32 +4,22 @@ package minerva.server;
  *
  * @author L
  */
-public class CodigoBarras {
-    private String codigoBarras;
+public class CodigoBarrasServer {
+    private static long codigoBarras = 404;
 
-    public CodigoBarras() {
+    public CodigoBarrasServer() {
     }
 
-    public CodigoBarras(String codigoBarras) {
+    public CodigoBarrasServer(long codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 
-    public String getCodigoBarras() {
+    public static long getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
+    public static void setCodigoBarras(long codigoBarras) {
+        CodigoBarrasServer.codigoBarras = codigoBarras;
     }
 
-    @Override
-    public String toString() {
-        return "CodigoBarras{" + "codigoBarras=" + codigoBarras + '}';
-    }
-    
-    
-    
-    
-    
-    
 }

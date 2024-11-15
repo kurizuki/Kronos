@@ -47,7 +47,7 @@ public class SystemView extends javax.swing.JFrame {
         // ESTE ES EL PANEL INICIAL QUE SE MOSTRARÁ
         dibujarPanel(panelNuevaVenta);
     }
-  
+       
     public ControllerSystem getController() {
         return controllerSystem;
     }

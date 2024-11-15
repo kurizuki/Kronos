@@ -2,7 +2,6 @@ package minerva.controller;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.swing.JOptionPane;
 import minerva.model.entity.Vendedor;
 import minerva.model.dto.DTOVendedor;
 import minerva.server.ServidorHTTP;

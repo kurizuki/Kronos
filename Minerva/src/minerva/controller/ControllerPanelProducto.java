@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import minerva.model.ExceptionHandler;
 import minerva.model.dto.DTOProducto;
 import minerva.model.entity.Producto;
+import minerva.view.panel.PanelProducto;
 
 /**
  *
@@ -11,8 +12,14 @@ import minerva.model.entity.Producto;
  */
 public class ControllerPanelProducto {
     private ExceptionHandler exceptionHandler = null;
+    private PanelProducto panelProducto = null;            
 
-    public ControllerPanelProducto() {
+    public ControllerPanelProducto(PanelProducto panelProducto) {
+        this.panelProducto = panelProducto;
+    }
+    
+    public void setCodigoBarras() {
+        
     }
     
     public boolean createProductoDB(DTOProducto dtoProducto) {

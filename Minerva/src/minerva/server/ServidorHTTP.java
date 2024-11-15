@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.Map;
 
 /**
  *
@@ -25,16 +26,13 @@ public class ServidorHTTP implements Runnable{
     public void run() {
         iniciar();
     }
-    
-    private static long codigoBarrasServidor = 404;
-    
+        
     private void iniciar() {
         try {            
             HttpServer httpServer = HttpServer.create(new InetSocketAddress("0.0.0.0",PUERTO), 6);
             
             // Crear contexto para registrar producto
             HttpContext contextoRegistrar = httpServer.createContext("/registrar-producto");
-            contextoRegistrar.setHandler(ServidorHTTP::solicitudRegistrarProducto);
             
             // Crea un contexto específico para la ruta "/registrar-producto"
             HttpContext contexto = httpServer.createContext("/validar-codigo-barras");
@@ -73,20 +71,21 @@ public class ServidorHTTP implements Runnable{
                 jsonBuilder += linea;
             }
             
-            System.out.println(jsonBuilder);
-
             // Convertir el JSON a una cadena
             Gson gson = new Gson();
-            CodigoBarras codigoBarras = gson.fromJson(jsonBuilder, CodigoBarras.class);
-            
-            codigoBarras.toString();
-            try {
-                codigoBarrasServidor = Long.parseLong(codigoBarras.getCodigoBarras());
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-            // Aquí puedes procesar el JSON como desees
+            Map<String, Object> codigoBarrasMap = gson.fromJson(jsonBuilder, Map.class);
 
+            if (codigoBarrasMap.containsKey("codigoBarras")) {
+                try {
+                    long codigoBarras = ((Double) codigoBarrasMap.get("codigoBarras")).longValue();
+                    CodigoBarrasServer.setCodigoBarras(codigoBarras);
+                    System.out.println("Código de barras recibido: " + CodigoBarrasServer.getCodigoBarras());
+                } catch (ClassCastException e) {
+                    System.err.println("Error al convertir el valor de codigoBarras: " + e.getMessage());
+                }
+            } else {
+                System.err.println("No se encontró el campo 'codigoBarras' en el JSON.");
+            }
 
             // Respuesta al cliente
             String respuesta = "Validar Codigo de barras";
@@ -108,59 +107,8 @@ public class ServidorHTTP implements Runnable{
             }
         }
     }
-    
-    private static void solicitudRegistrarProducto(HttpExchange exchange) throws IOException {
-        // Agregar encabezados CORS PARA QUE NODE JS PUEDA ESTABLECER CONEXION
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-        if ("OPTIONS".equals(exchange.getRequestMethod())) {
-               // Responder a la solicitud preflight
-               exchange.sendResponseHeaders(204, -1); // No content
-               return;
-        }
-        // Solo manejar solicitudes POST
-        if ("POST".equals(exchange.getRequestMethod())) {
-            // Leer el cuerpo de la solicitud
-            BufferedReader reader = new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
-            String jsonBuilder = new String();
-            String linea;
-
-            while ((linea = reader.readLine()) != null) {
-                jsonBuilder += linea;
-            }
-            
-            System.out.println(jsonBuilder);
-
-            // Convertir el JSON a una cadena
-            Gson gson = new Gson();
-            
-
-            // Aquí puedes procesar el JSON como desees
-
-
-            // Respuesta al cliente
-            String respuesta = "Registrar Producto";
-            final int CODIGO_RESPUESTA = 200;
-            
-            exchange.sendResponseHeaders(CODIGO_RESPUESTA, respuesta.getBytes().length);
-
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(respuesta.getBytes());
-            }
-        } else {
-            // Manejar métodos no soportados
-            String respuesta = "Método no soportado";
-            final int CODIGO_RESPUESTA = 405; // Method Not Allowed
-            exchange.sendResponseHeaders(CODIGO_RESPUESTA, respuesta.getBytes().length);
-            
-            try (OutputStream os = exchange.getResponseBody()) {
-                os.write(respuesta.getBytes());
-            }
-        }
-        
-        
-    }
+      
+}
 //    implements Runnable y implements AutoCloseable son dos interfaces en Java que sirven para propósitos diferentes. Aquí te explico cada una:
 //
 //1. implements Runnable
@@ -182,7 +130,3 @@ public class ServidorHTTP implements Runnable{
 //Thread hilo = new Thread(new MiTarea());
 //hilo.start();
 
-    public static long getCodigoBarrasServidor() {
-        return codigoBarrasServidor;
-    }
-}
